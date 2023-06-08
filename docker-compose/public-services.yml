@@ -23,6 +23,19 @@ services:
         - D:\Docker\kavita\config:/kavita/config
     restart: unless-stopped
 
+  vault:
+    image: vaultwarden/server:latest
+    networks:
+      - public-services
+    environment:
+      SIGNUPS_ALLOWED: true
+      ADMIN_TOKEN: ${VAULT_TOKEN}
+    volumes:
+      - vault_data:/data
+
+volumes:
+  vault_data:
+
 networks:
   public-services:
     name: public-services
