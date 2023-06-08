@@ -1,0 +1,17 @@
+---
+version: "2.1"
+services:
+  tautulli:
+    image: lscr.io/linuxserver/tautulli:latest
+    container_name: tautulli
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      - DOCKER_MODS=ghcr.io/gilbn/theme.park:tautulli
+      - TP_THEME=overseerr      
+    volumes:
+      - D:\Docker\tautulli\config:/config
+    ports:
+      - 8181:8181
+    restart: unless-stopped

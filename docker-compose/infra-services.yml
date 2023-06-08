@@ -1,0 +1,71 @@
+version: '3.9'
+
+x-common-variables: &common-variables
+  PUID: 1000
+  PGID: 1000
+  TZ: Etc/UTC
+
+services:
+  pihole:
+    image: pihole/pihole:latest
+    environment:
+      <<: *common-variables
+      WEBPASSWORD: ${PIHOLE_PASSWORD}
+      MOZILLA_CANARY: true
+    networks:
+      - infra-services
+    ports:
+      - 53:53/tcp
+      - 53:53/udp
+      - 67:67/udp
+      - 8600:80
+    volumes:
+      - pihole_config:/etc/pihole
+      - pihole_dnsmasq:/etc/dnsmasq.d
+    cap_add:
+      - NET_ADMIN
+    restart: unless-stopped
+
+  gitea:
+    image: gitea/gitea:latest-rootless
+    restart: unless-stopped
+    environment:
+      <<: *common-variables
+      GITEA__database__DB_TYPE: postgres
+      GITEA__database__HOST: infra-services-giteadb-1:5432
+      GITEA__database__NAME: ${DB_NAME}
+      GITEA__database__PASSWD: ${DB_PASSWORD}
+    networks:
+      - infra-services
+    ports:
+      - 3000:3000 
+      - 2222:22
+    volumes:
+      - gitea-data:/data
+      - gitea-config:/etc/gitea
+    depends_on:
+      - giteadb
+        
+  giteadb:
+    image: postgres:14
+    networks:
+      - infra-services
+    environment: 
+      <<: *common-variables
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - giteadb-data:/var/lib/mysql
+    restart: unless-stopped
+
+volumes: 
+  giteadb-data:
+  gitea-config:
+  gitea-data:
+  pihole_config:
+  pihole_dnsmasq:
+
+networks:
+  infra-services:
+    name: infra-services

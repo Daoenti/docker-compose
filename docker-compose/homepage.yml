@@ -1,0 +1,10 @@
+version: "3.3"
+services:
+  homepage:
+    image: ghcr.io/benphelps/homepage:latest
+    container_name: homepage
+    ports:
+      - 192.168.1.150:3000:3000
+    volumes:
+      - D:\Docker\homepage\config:/app/config # Make sure your local config directory exists
+      - /var/run/docker.sock:/var/run/docker.sock:ro # (optional) For docker integrations

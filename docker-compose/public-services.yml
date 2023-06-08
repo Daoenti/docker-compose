@@ -1,0 +1,57 @@
+version: '3.9'
+services:
+  npm:
+    image: jc21/nginx-proxy-manager:latest
+    restart: unless-stopped
+    networks:
+      - public-services
+    ports:
+      - 80:80 
+      - 443:443
+      - 81:81 
+    volumes:
+      - D:\Docker\npm\data:/data
+      - D:\Docker\npm\letsencrypt:/etc/letsencrypt
+        
+  kavita:
+    image: kizaing/kavita:latest
+    networks:
+      - public-services
+    volumes:
+        - D:\Docker\kavita\comics:/comics
+        - D:\Docker\kavita\organized:/comics-organized
+        - D:\Docker\kavita\config:/kavita/config
+    restart: unless-stopped
+
+  tandoor:
+    image: vabene1111/recipes
+    networks:
+      - public-services
+    env_file:
+      - ./.env.tandoor
+    volumes:
+      - tandoor-static:/opt/recipes/staticfiles
+      - tandoor-config:/opt/recipes/nginx/conf.d
+      - D:\Docker\tandoor\media:/opt/recipes/mediafiles
+    depends_on:
+      - tandoordb
+    restart: unless-stopped
+
+  tandoordb:
+    image: postgres:11-alpine
+    networks:
+      - public-services
+    env_file:
+      - ./.env.tandoor
+    volumes:
+      - tandoordb-data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  tandoor-static:
+  tandoor-config:
+  tandoordb-data:
+
+networks:
+  public-services:
+    name: public-services
