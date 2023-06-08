@@ -23,35 +23,6 @@ services:
         - D:\Docker\kavita\config:/kavita/config
     restart: unless-stopped
 
-  tandoor:
-    image: vabene1111/recipes
-    networks:
-      - public-services
-    env_file:
-      - ./.env.tandoor
-    volumes:
-      - tandoor-static:/opt/recipes/staticfiles
-      - tandoor-config:/opt/recipes/nginx/conf.d
-      - D:\Docker\tandoor\media:/opt/recipes/mediafiles
-    depends_on:
-      - tandoordb
-    restart: unless-stopped
-
-  tandoordb:
-    image: postgres:11-alpine
-    networks:
-      - public-services
-    env_file:
-      - ./.env.tandoor
-    volumes:
-      - tandoordb-data:/var/lib/postgresql/data
-    restart: unless-stopped
-
-volumes:
-  tandoor-static:
-  tandoor-config:
-  tandoordb-data:
-
 networks:
   public-services:
     name: public-services
