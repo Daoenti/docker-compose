@@ -38,7 +38,7 @@ services:
     networks:
       - public-services
     ports:
-      - 8080:8180
+      - 8180:8080
     volumes:
       - nextcloud_aio_mastercontainer:/mnt/docker-aio-config
       - /var/run/docker.sock:/var/run/docker.sock:ro
