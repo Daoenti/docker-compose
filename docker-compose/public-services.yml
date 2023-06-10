@@ -40,7 +40,7 @@ services:
     ports:
       - 8180:8080
     volumes:
-      - nextcloud_aio_mastercontainer:/mnt/docker-aio-config
+      - nextcloud-aiomaster-container:/mnt/docker-aio-config
       - //var/run/docker.sock:/var/run/docker.sock:ro
     environment:
       APACHE_PORT: 11000
@@ -48,8 +48,8 @@ services:
 
 volumes:
   vault_data:
-  nextcloud_aio_mastercontainer:
-    name: nextcloud_aio_mastercontainer
+  nextcloud-aio-mastercontainer:
+    name: nextcloud-aio-mastercontainer
 
 networks:
   public-services:
