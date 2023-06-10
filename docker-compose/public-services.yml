@@ -35,6 +35,7 @@ services:
 
   nextcloud:
     image: nextcloud/all-in-one:latest
+    container_name: nextcloud-aio-mastercontainer
     networks:
       - public-services
     ports:
