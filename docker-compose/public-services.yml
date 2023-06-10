@@ -33,8 +33,23 @@ services:
     volumes:
       - vault_data:/data
 
+  nextcloud:
+    image: nextcloud/all-in-one:latest
+    networks:
+      - public-services
+    ports:
+      - 8080:8080
+    volumes:
+      - nextcloud_aio_mastercontainer:/mnt/docker-aio-config
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      APACHE_PORT: 11000
+      APACHE_IP_BINDING: 0.0.0.0
+
 volumes:
   vault_data:
+  nextcloud_aio_mastercontainer:
+    name: nextcloud_aio_mastercontainer
 
 networks:
   public-services:
