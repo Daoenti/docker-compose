@@ -33,25 +33,8 @@ services:
     volumes:
       - vault_data:/data
 
-  nextcloud:
-    image: nextcloud/all-in-one:latest
-    container_name: nextcloud-aio-mastercontainer
-    networks:
-      - public-services
-    ports:
-      - 8180:8080
-    volumes:
-      - nextcloud_aio_mastercontainer:/mnt/docker-aio-config
-      - //var/run/docker.sock:/var/run/docker.sock:ro
-    environment:
-      APACHE_PORT: 11000
-      APACHE_IP_BINDING: 0.0.0.0
-      SKIP_DOMAIN_VALIDATION: true
-    restart: unless-stopped
-
 volumes:
   vault_data:
-  nextcloud_aio_mastercontainer:
 
 networks:
   public-services:
