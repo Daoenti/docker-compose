@@ -76,21 +76,6 @@ services:
       - D:\sabnzbd\download\complete/downloads
       - D:\Docker\scripts\98-themepark-whisparr:/etc/cont-init.d/98-themepark
 
-  sabnzbd:
-    image: lscr.io/linuxserver/sabnzbd:latest
-    networks:
-      - media-management
-    environment:
-      <<: *common-variables
-      DOCKER_MODS: ghcr.io/gilbn/theme.park:sabnzbd
-    volumes:
-      - D:\Docker\sabnzbd\config:/config
-      - D:\sabnzbd\download\complete:/downloads #optional
-      - D:\Docker\sabnzbd\incomplete:/incomplete-downloads #optional
-    ports:
-      - 8080:8080
-    restart: unless-stopped
-
   tautulli:
     image: lscr.io/linuxserver/tautulli:latest
     networks:
