@@ -73,7 +73,7 @@ services:
     volumes:
       - D:\Docker\whisparr\config:/config
       - D:\Docker\whisparr\data:/data
-      - D:\sabnzbd\download\complete/downloads
+      - D:\sabnzbd\download\complete:/downloads
       - D:\Docker\scripts\98-themepark-whisparr:/etc/cont-init.d/98-themepark
 
   tautulli:
