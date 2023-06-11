@@ -91,6 +91,22 @@ services:
       - 8080:8080
     restart: unless-stopped
 
+  tautulli:
+    image: lscr.io/linuxserver/tautulli:latest
+    networks:
+      - media-management
+    ports:
+      - 8181:8181
+    environment:
+      <<: *common-variables
+      DOCKER_MODS: ghcr.io/gilbn/theme.park:tautulli
+    volumes:
+      - tautulli_config:/config
+    restart: unless-stopped
+
+volumes:
+  tautulli_config:
+
 networks:
   media-management:
     name: media-management
