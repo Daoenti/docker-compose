@@ -17,7 +17,7 @@ services:
       DOCKER_MODS: ghcr.io/gilbn/theme.park:radarr
     volumes:
       - D:\Docker\radarr\movies:/movies
-      - D:\Docker\sabnzbd\downloads:/downloads
+      - D:\sabnzbd\download\complete:/downloads
       - D:\Docker\radarr\config:/config
     ports:
       - 7878:7878/tcp
@@ -33,7 +33,7 @@ services:
     volumes:
       - D:\Docker\sonarr\config:/config
       - D:\Docker\sonarr\tv:/tv
-      - D:\Docker\sabnzbd\downloads:/downloads
+      - D:\sabnzbd\download\complete:/downloads
     ports:
       - 8989:8989
     restart: unless-stopped
@@ -73,7 +73,7 @@ services:
     volumes:
       - D:\Docker\whisparr\config:/config
       - D:\Docker\whisparr\data:/data
-      - D:\Docker\sabnzbd\downloads:/downloads
+      - D:\sabnzbd\download\complete/downloads
       - D:\Docker\scripts\98-themepark-whisparr:/etc/cont-init.d/98-themepark
 
   sabnzbd:
@@ -85,7 +85,7 @@ services:
       DOCKER_MODS: ghcr.io/gilbn/theme.park:sabnzbd
     volumes:
       - D:\Docker\sabnzbd\config:/config
-      - D:\Docker\sabnzbd\downloads:/downloads #optional
+      - D:\sabnzbd\download\complete:/downloads #optional
       - D:\Docker\sabnzbd\incomplete:/incomplete-downloads #optional
     ports:
       - 8080:8080
