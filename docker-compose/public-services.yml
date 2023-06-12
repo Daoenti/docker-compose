@@ -2,7 +2,6 @@ version: '3.9'
 services:
   npm:
     image: jc21/nginx-proxy-manager:latest
-    restart: unless-stopped
     networks:
       - public-services
     ports:
@@ -12,6 +11,7 @@ services:
     volumes:
       - D:\Docker\npm\data:/data
       - D:\Docker\npm\letsencrypt:/etc/letsencrypt
+    restart: unless-stopped
         
   kavita:
     image: kizaing/kavita:latest
@@ -32,9 +32,19 @@ services:
       ADMIN_TOKEN: ${VAULT_TOKEN}
     volumes:
       - vault_data:/data
+    restart: unless-stopped
+
+  actual:
+    image: actualbudget/actual-server:latest
+    networks:
+      - public-services
+    volumes:
+      - actual_data:/data
+    restart: unless-stopped
 
 volumes:
   vault_data:
+  actual_data:
 
 networks:
   public-services:

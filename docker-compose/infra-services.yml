@@ -28,7 +28,6 @@ services:
 
   gitea:
     image: gitea/gitea:latest-rootless
-    restart: unless-stopped
     environment:
       <<: *common-variables
       GITEA__database__DB_TYPE: postgres
@@ -45,6 +44,7 @@ services:
       - gitea-config:/etc/gitea
     depends_on:
       - giteadb
+    restart: unless-stopped
         
   giteadb:
     image: postgres:14
