@@ -65,7 +65,7 @@ services:
       - infra-services
     ports:
       - 7890:7890
-    environment: *common-variabled
+    environment: *common-variables
     volumes:
       - D:\Docker\npm\data\nginx\logs:/opt/log
     restart: unless-stopped
