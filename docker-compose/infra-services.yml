@@ -60,7 +60,7 @@ services:
     restart: unless-stopped
 
   goaccess:
-    image: xavierh/goaccess-for-nginxproxymanager:latest'
+    image: xavierh/goaccess-for-nginxproxymanager:latest
     networks:
       - infra-services
     ports:
