@@ -60,14 +60,12 @@ services:
     restart: unless-stopped
 
   goaccess:
-    image: xavierh/goaccess-for-nginxproxymanager:latest
+    image: allinurl/goaccess:latest
     networks:
       - infra-services
     ports:
-      - 7880:7880
-    environment:
-      <<: *common-variables
-      LOG_TYPE: npm
+      - 7890:7890
+    environment: *common-variabled
     volumes:
       - D:\Docker\npm\data\nginx\logs:/opt/log
     restart: unless-stopped
