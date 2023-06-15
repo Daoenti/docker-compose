@@ -59,12 +59,24 @@ services:
       - giteadb-data:/var/lib/mysql
     restart: unless-stopped
 
+  homarr:
+    image: ghcr.io/ajnart/homarr:latest
+    networks:
+      - infra-services
+    ports:
+      - 7575:7575
+    volumes:
+      - homarr-config:/app/data/configs
+      - homarr-icons:/app/public/icons
+
 volumes: 
   giteadb-data:
   gitea-config:
   gitea-data:
   pihole_config:
   pihole_dnsmasq:
+  homarr-config:
+  homarr-icons:
 
 networks:
   infra-services:
