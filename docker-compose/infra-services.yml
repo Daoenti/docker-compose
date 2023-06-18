@@ -13,7 +13,7 @@ services:
       WEBPASSWORD: ${PIHOLE_PASSWORD}
       MOZILLA_CANARY: true
     networks:
-      - infra-services
+      - host
     ports:
       - 53:53/tcp
       - 53:53/udp
