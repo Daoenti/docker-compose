@@ -13,11 +13,11 @@ services:
       WEBPASSWORD: ${PIHOLE_PASSWORD}
       MOZILLA_CANARY: true
     networks:
-      - host
+      - infra-services
     ports:
-      - 53:53/tcp
-      - 53:53/udp
-      - 67:67/udp
+      - 192.168.1.151:53:53/tcp
+      - 192.168.1.151:53:53/udp
+      - 192.168.1.151:67:67/udp
       - 8600:80
     volumes:
       - pihole_config:/etc/pihole
