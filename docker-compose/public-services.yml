@@ -71,4 +71,4 @@ networks:
     name: public-services
   backend:
     name: backend
-    type: external
+    external: true
