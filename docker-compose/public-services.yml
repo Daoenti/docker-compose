@@ -46,6 +46,7 @@ services:
     image: gitlab/gitlab-ee:latest
     networks:
       - public-services
+      - backend
     environment:
       GITLAB_OMNIBUS_CONFIG: |
         external_url 'https://gitlab.thecowsaysmoo.net'
@@ -68,3 +69,6 @@ volumes:
 networks:
   public-services:
     name: public-services
+  backend:
+    name: backend
+    type: external
