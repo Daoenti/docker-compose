@@ -48,7 +48,7 @@ services:
       - public-services
     environment:
       GITLAB_OMNIBUS_CONFIG: |
-        externam_url 'https://gitlab.thecowsaysmoo.net'
+        external_url 'https://gitlab.thecowsaysmoo.net'
     ports:
       - 22:22
     volumes:
