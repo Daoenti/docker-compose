@@ -29,8 +29,8 @@ services:
   gitlab-runner:
     image: gitlab/gitlab-runner:latest
     networks:
-      infra-services
-      backend
+      - infra-services
+      - backend
     volumes:
       - gitlab_runner_conf:/etc/gitlab-runner
       - /var/run/docker.sock:/var/run/docker.sock
