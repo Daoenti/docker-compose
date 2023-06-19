@@ -42,9 +42,28 @@ services:
       - actual_data:/data
     restart: unless-stopped
 
+  gitlab:
+    image: gitlab/gitlab-ee:latest
+    networks:
+      - public-services
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        externam_url 'https://gitlab.thecowsaysmoo.net'
+    ports:
+      - 22:22
+    volumes:
+      - gitlab_config:/etc/gitlab
+      - gitlab_logs:/var/log/gitlab
+      - gitlab_data:/var/opt/gitlab
+    shm_size: 256m
+    restart: unless-stopped
+
 volumes:
   vault_data:
   actual_data:
+  gitlab_config:
+  gitlab_logs:
+  gitlab_data:
 
 networks:
   public-services:
