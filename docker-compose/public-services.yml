@@ -59,12 +59,23 @@ services:
     shm_size: 256m
     restart: unless-stopped
 
+  selfoss:
+    image: rsprta/selfoss
+    networks:
+      - public-services
+    ports:
+      - 8888:8888
+    volumes:
+      - selfoss_data:/selfoss/data
+    restart: unless-stopped
+
 volumes:
   vault_data:
   actual_data:
   gitlab_config:
   gitlab_logs:
   gitlab_data:
+  selfoss_data:
 
 networks:
   public-services:
