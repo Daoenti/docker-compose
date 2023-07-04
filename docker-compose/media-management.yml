@@ -78,6 +78,17 @@ services:
       - D:\Docker\scripts\98-themepark-whisparr:/etc/cont-init.d/98-themepark
     restart: unless-stopped
 
+  overseerr:
+    image: sctx/overseer:latest
+    networks:
+      - media-management
+      - public-services
+    environment: 
+      <<: *common-variables
+    volumes:
+      - overseerr_config:/app/config
+    restart: unless-stopped
+
   tautulli:
     image: lscr.io/linuxserver/tautulli:latest
     networks:
@@ -97,3 +108,6 @@ volumes:
 networks:
   media-management:
     name: media-management
+  public-services:
+    name: public-services
+    external: true
