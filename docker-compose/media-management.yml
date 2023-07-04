@@ -104,6 +104,7 @@ services:
 
 volumes:
   tautulli_config:
+  overseerr_config:
 
 networks:
   media-management:
