@@ -79,7 +79,7 @@ services:
     restart: unless-stopped
 
   overseerr:
-    image: sctx/overseer:latest
+    image: sctx/overseerr:latest
     networks:
       - media-management
       - public-services
