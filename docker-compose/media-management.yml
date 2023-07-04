@@ -83,6 +83,8 @@ services:
     networks:
       - media-management
       - public-services
+    ports:
+      - 5050:5050
     environment: 
       <<: *common-variables
     volumes:
