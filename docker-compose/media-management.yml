@@ -24,7 +24,7 @@ services:
     restart: unless-stopped
 
   sonarr:
-    image: lscr.io/linuxserver/sonarr:latest
+    image: lscr.io/linuxserver/sonarr:develop
     networks:
       - media-management
     environment:
