@@ -33,6 +33,7 @@ services:
     volumes:
       - D:\Docker\sonarr\config:/config
       - D:\Docker\sonarr\tv:/tv
+      - D:\Docker\sonarr\anime:/anime
       - D:\sabnzbd\download\complete:/downloads
     ports:
       - 8989:8989
@@ -83,8 +84,6 @@ services:
     networks:
       - media-management
       - public-services
-    ports:
-      - 5050:5050
     environment: 
       <<: *common-variables
     volumes:
