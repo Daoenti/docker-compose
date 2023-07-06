@@ -59,12 +59,12 @@ services:
     shm_size: 256m
     restart: unless-stopped
 
-  convos:
-    image: convos/convos:stable
+  thelounge:
+    image: ghcr.io/thelounge/thelounge:latest
     networks:
       - public-services
     volumes:
-      - convos_config:/data
+      - thelounge_config:/var/opt/thelounge
     restart: unless-stopped
 
 volumes:
@@ -73,7 +73,7 @@ volumes:
   gitlab_config:
   gitlab_logs:
   gitlab_data:
-  convos_config:
+  thelounge_config:
 
 networks:
   public-services:
