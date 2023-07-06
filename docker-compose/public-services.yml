@@ -63,8 +63,6 @@ services:
     image: convos/convos:stable
     networks:
       - public-services
-    ports:
-      - 8800:3000
     volumes:
       - convos_config:/data
     restart: unless-stopped
