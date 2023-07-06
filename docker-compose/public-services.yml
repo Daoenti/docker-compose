@@ -59,12 +59,14 @@ services:
     shm_size: 256m
     restart: unless-stopped
 
-  selfoss:
-    image: rsprta/selfoss
+  convos:
+    image: convos/convos:stable
     networks:
       - public-services
+    ports:
+      - 8800:3000
     volumes:
-      - selfoss_data:/selfoss/data
+      - convos_config:/data
     restart: unless-stopped
 
 volumes:
@@ -73,7 +75,7 @@ volumes:
   gitlab_config:
   gitlab_logs:
   gitlab_data:
-  selfoss_data:
+  convos_config:
 
 networks:
   public-services:
