@@ -36,6 +36,16 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     restart: unless-stopped
 
+  dozzle:
+    image: amir20/dozzle:latest
+    networks:
+      - infra-services
+    ports:
+      - 9999:8080
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
+
 volumes: 
   pihole_config:
   pihole_dnsmasq:
