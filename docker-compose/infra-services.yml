@@ -26,24 +26,14 @@ services:
       - NET_ADMIN
     restart: unless-stopped
 
-  gitlab-runner:
-    image: gitlab/gitlab-runner:latest
-    networks:
-      - infra-services
-      - backend
-    volumes:
-      - gitlab_runner_conf:/etc/gitlab-runner
-      - /var/run/docker.sock:/var/run/docker.sock
-    restart: unless-stopped
-
-  dozzle:
-    image: amir20/dozzle:latest
+  cgit:
+    image: clearlinux/cget
     networks:
       - infra-services
     ports:
-      - 9999:8080
+      - 9100:80
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+      - C:\Users\yohnt\github\containers:/var/www/cgit
     restart: unless-stopped
 
 volumes: 
