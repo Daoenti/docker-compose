@@ -56,7 +56,7 @@ services:
       - 4567:4567
     volumes:
       - D:\Docker\wiki\config.rb:/etc/gollum/config.rb
-      - D:\Docker\wiki\wikidata:/wiki
+      - gollum_data:/wiki
     command:
       - "--config=/etc/gollum/config.rb"
 
@@ -64,6 +64,7 @@ volumes:
   pihole_config:
   pihole_dnsmasq:
   gitlab_runner_conf:
+  gollum_data:
 
 networks:
   infra-services:
