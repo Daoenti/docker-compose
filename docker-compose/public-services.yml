@@ -69,6 +69,9 @@ services:
 
   bookstack:
     image: lscr.io/linuxserver/bookstack
+    networks:
+      - public-services
+      - backend
     environment:
       - PUID=1000
       - PGID=1000
@@ -86,6 +89,8 @@ services:
 
   bookstack_db:
     image: lscr.io/linuxserver/mariadb
+    networks:
+      - backend
     environment:
       - PUID=1000
       - PGID=1000
