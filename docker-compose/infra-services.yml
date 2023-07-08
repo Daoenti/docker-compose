@@ -27,7 +27,7 @@ services:
     restart: unless-stopped
 
   cgit:
-    image: clearlinux/cget
+    image: clearlinux/cgit:latest
     networks:
       - infra-services
     ports:
