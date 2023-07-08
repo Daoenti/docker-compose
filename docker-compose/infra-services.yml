@@ -48,6 +48,8 @@ services:
 
   gollum:
     image: gollumwiki/gollum:master
+    environment:
+      <<: *common-variables
     networks:
       - infra-services
     ports:
