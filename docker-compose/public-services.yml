@@ -67,6 +67,39 @@ services:
       - thelounge_config:/var/opt/thelounge
     restart: unless-stopped
 
+  bookstack:
+    image: lscr.io/linuxserver/bookstack
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - APP_URL=https://stack.thecowsaysmoo.net
+      - DB_HOST=public-services-bookstack_db-1
+      - DB_PORT=3306
+      - DB_USER=${DBUSER}
+      - DB_PASS=${DBPASS}
+      - DB_DATABASE=${DBDATABASE}
+    volumes:
+      - bookstack_app_data:/config
+    ports:
+      - 6875:80
+    restart: unless-stopped
+    depends_on:
+      - bookstack_db
+
+  bookstack_db:
+    image: lscr.io/linuxserver/mariadb
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - MYSQL_ROOT_PASSWORD=${DBROOTPASS}
+      - TZ=Etc/UTC
+      - MYSQL_DATABASE=${DBDATABASE}
+      - MYSQL_USER=${DBUSER}
+      - MYSQL_PASSWORD=${DBPASS}
+    volumes:
+      - bookstack_db_data:/config
+    restart: unless-stopped
+
 volumes:
   vault_data:
   actual_data:
@@ -74,6 +107,8 @@ volumes:
   gitlab_logs:
   gitlab_data:
   thelounge_config:
+  bookstack_app_data:
+  bookstack_db_data:
 
 networks:
   public-services:
