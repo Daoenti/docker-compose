@@ -33,7 +33,7 @@ services:
     ports:
       - 9100:80
     volumes:
-      - C:\Users\yohnt\github:/var/www
+      - C:\Users\yohnt\github:/var/www/cgit
     restart: unless-stopped
 
 volumes: 
