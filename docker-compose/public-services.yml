@@ -86,12 +86,23 @@ services:
       - bookstack_db_data:/config
     restart: unless-stopped
 
+  gogs:
+    image: gogs/gogs
+    networks:
+      - public-services
+    ports:
+      - 22:22
+    volumes:
+      gogs_data:/data
+    restart: unless-stopped
+
 volumes:
   vault_data:
   actual_data:
   thelounge_config:
   bookstack_app_data:
   bookstack_db_data:
+  gogs_data:
 
 networks:
   public-services:
