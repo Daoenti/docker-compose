@@ -93,7 +93,7 @@ services:
     ports:
       - 22:22
     volumes:
-      gogs_data:/data
+      - gogs_data:/data
     restart: unless-stopped
 
 volumes:
