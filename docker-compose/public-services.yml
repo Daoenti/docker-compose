@@ -5,9 +5,9 @@ services:
     networks:
       - public-services
     ports:
-      - 80:80 
-      - 443:443
-      - 81:81 
+      - 192.168.1.150:800:80 
+      - 192.168.1.150:4433:443
+      - 192.168.1.150:81:81 
     volumes:
       - D:\Docker\npm\data:/data
       - D:\Docker\npm\letsencrypt:/etc/letsencrypt
@@ -109,4 +109,3 @@ networks:
     name: public-services
   backend:
     name: backend
-    external: true

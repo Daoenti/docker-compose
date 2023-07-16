@@ -1,0 +1,37 @@
+version: '3.9'
+
+x-common-variables: &common-variables
+  PUID: 1000
+  PGID: 1000
+  TZ: Etc/UTC
+
+services:
+  pihole:
+    image: pihole/pihole:latest
+    environment:
+      <<: *common-variables
+      WEBPASSWORD: ${PIHOLE_PASSWORD}
+      MOZILLA_CANARY: true
+      DNS1: 1.1.1.1
+      DNS2: 1.0.0.1
+      VIRTUAL_HOST: pi.hole
+      DNSMASQ_LISTENING: all
+      ServerIP: 192.168.1.150
+      DHCP_ACTIVE: true
+      DHCP_START: 192.168.1.2
+      DHCP_END: 192.168.1.100
+      DHCP_ROUTER: 192.168.1.1
+    network_mode: host
+    dns:
+      - 127.0.0.1
+      - 1.1.1.1
+    volumes:
+      - pihole_config:/etc/pihole
+      - pihole_dnsmasq:/etc/dnsmasq.d
+    cap_add:
+      - NET_ADMIN
+    restart: unless-stopped
+
+volumes: 
+  pihole_config:
+  pihole_dnsmasq:

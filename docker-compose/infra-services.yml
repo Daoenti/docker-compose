@@ -6,26 +6,6 @@ x-common-variables: &common-variables
   TZ: Etc/UTC
 
 services:
-  pihole:
-    image: pihole/pihole:latest
-    environment:
-      <<: *common-variables
-      WEBPASSWORD: ${PIHOLE_PASSWORD}
-      MOZILLA_CANARY: true
-    networks:
-      - infra-services
-    ports:
-      - 192.168.1.151:53:53/tcp
-      - 192.168.1.151:53:53/udp
-      - 192.168.1.151:67:67/udp
-      - 8600:80
-    volumes:
-      - pihole_config:/etc/pihole
-      - pihole_dnsmasq:/etc/dnsmasq.d
-    cap_add:
-      - NET_ADMIN
-    restart: unless-stopped
-
   cgit:
     image: clearlinux/cgit:latest
     networks:
@@ -36,13 +16,5 @@ services:
       - C:\Users\yohnt\github:/var/www/cgit
     restart: unless-stopped
 
-volumes: 
-  pihole_config:
-  pihole_dnsmasq:
-  gitlab_runner_conf:
-
 networks:
   infra-services:
-    name: infra-services
-  backend:
-    name: backend
