@@ -18,3 +18,4 @@ services:
 
 networks:
   infra-services:
+    name: infra-services
