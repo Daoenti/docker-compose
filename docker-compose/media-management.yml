@@ -115,6 +115,6 @@ volumes:
 networks:
   media-management:
     name: media-management
-  public-services:
+  backend:
     name: backend
     external: true
