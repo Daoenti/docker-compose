@@ -11,6 +11,7 @@ services:
     image: linuxserver/radarr:latest
     networks:
       - media-management
+      - backend
     environment:
       <<: *common-variables
       UMASK_SET: 022
@@ -27,6 +28,7 @@ services:
     image: lscr.io/linuxserver/sonarr:develop
     networks:
       - media-management
+      - backend
     environment:
       <<: *common-variables
       DOCKER_MODS: ghcr.io/gilbn/theme.park:sonarr
@@ -43,6 +45,7 @@ services:
     image: lscr.io/linuxserver/prowlarr:latest
     networks:
       - media-management
+      - backend
     environment:
       <<: *common-variables
       DOCKER_MODS: ghcr.io/gilbn/theme.park:prowlarr
@@ -66,6 +69,7 @@ services:
     image: cr.hotio.dev/hotio/whisparr
     networks:
       - media-management
+      - backend
     ports:
       - 6969:6969
     environment:
@@ -83,7 +87,7 @@ services:
     image: sctx/overseerr:latest
     networks:
       - media-management
-      - public-services
+      - backend
     environment: 
       <<: *common-variables
     volumes:
@@ -94,6 +98,7 @@ services:
     image: lscr.io/linuxserver/tautulli:latest
     networks:
       - media-management
+      - backend
     ports:
       - 8181:8181
     environment:
@@ -111,5 +116,5 @@ networks:
   media-management:
     name: media-management
   public-services:
-    name: public-services
+    name: backend
     external: true
