@@ -121,6 +121,23 @@ services:
       - D:\Docker\sonarr\tv:/tv
       - D:\Docker\sonarr\anime:/anime
       - D:\Docker\radarr\movies:/movies
+    restart: unless-stopped
+
+  lazylibrarian:
+    image: lscr.io/linuxserver/lazylibrarian:latest
+    networks:
+      - media-management
+      - backend
+    ports:
+      - 5299:5299
+    environment:
+      <<: *common-variables
+      - DOCKER_MODS=linuxserver/calibre-web:calibre|linuxserver/mods:lazylibrarian-ffmpeg
+    volumes:
+      - lazylibrarian_config:/config
+      - D:\sabnzbd\download\complete:/downloads
+      - D:\Docker\lazylibrarian\books:/books
+    restart: unless-stopped
 
 volumes:
   tautulli_config:
