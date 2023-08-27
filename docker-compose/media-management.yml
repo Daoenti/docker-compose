@@ -143,6 +143,7 @@ volumes:
   tautulli_config:
   overseerr_config:
   bazarr_config:
+  lazy_librarian:
 
 networks:
   media-management:
