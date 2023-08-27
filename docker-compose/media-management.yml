@@ -108,9 +108,24 @@ services:
       - tautulli_config:/config
     restart: unless-stopped
 
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    networks:
+      - media-management
+    ports:
+      - 6767:6767
+    environment:
+      <<: *common-variables
+    volumes:
+      - bazarr_config:/config
+      - D:\Docker\sonarr\tv:/tv
+      - D:\Docker\sonarr\anime:/anime
+      - D:\Docker\radarr\movies:/movies
+
 volumes:
   tautulli_config:
   overseerr_config:
+  bazarr_config:
 
 networks:
   media-management:
