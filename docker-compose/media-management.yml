@@ -132,7 +132,7 @@ services:
       - 5299:5299
     environment:
       <<: *common-variables
-      - DOCKER_MODS=linuxserver/calibre-web:calibre|linuxserver/mods:lazylibrarian-ffmpeg
+      DOCKER_MODS: linuxserver/calibre-web:calibre|linuxserver/mods:lazylibrarian-ffmpeg
     volumes:
       - lazylibrarian_config:/config
       - D:\sabnzbd\download\complete:/downloads
