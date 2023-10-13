@@ -17,8 +17,7 @@ services:
       UMASK_SET: 022
       DOCKER_MODS: ghcr.io/gilbn/theme.park:radarr
     volumes:
-      - D:\Docker\radarr\movies:/movies
-      - D:\sabnzbd\download\complete:/downloads
+      - D:\data:/data
       - D:\Docker\radarr\config:/config
     ports:
       - 7878:7878/tcp
@@ -34,9 +33,7 @@ services:
       DOCKER_MODS: ghcr.io/gilbn/theme.park:sonarr
     volumes:
       - D:\Docker\sonarr\config:/config
-      - D:\Docker\sonarr\tv:/tv
-      - D:\Docker\sonarr\anime:/anime
-      - D:\sabnzbd\download\complete:/downloads
+      - D:\data:/data
     ports:
       - 8989:8989
     restart: unless-stopped
@@ -78,8 +75,7 @@ services:
       TP_HOTIO: true
     volumes:
       - D:\Docker\whisparr\config:/config
-      - D:\Docker\whisparr\data:/data
-      - D:\sabnzbd\download\complete:/downloads
+      - D:\data:/data
       - D:\Docker\scripts\98-themepark-whisparr:/etc/cont-init.d/98-themepark
     restart: unless-stopped
 
@@ -118,9 +114,7 @@ services:
       <<: *common-variables
     volumes:
       - bazarr_config:/config
-      - D:\Docker\sonarr\tv:/tv
-      - D:\Docker\sonarr\anime:/anime
-      - D:\Docker\radarr\movies:/movies
+      - D:\data\media:/media
     restart: unless-stopped
 
   lazylibrarian:
@@ -135,8 +129,7 @@ services:
       DOCKER_MODS: linuxserver/calibre-web:calibre|linuxserver/mods:lazylibrarian-ffmpeg
     volumes:
       - lazylibrarian_config:/config
-      - D:\sabnzbd\download\complete:/downloads
-      - D:\Docker\lazylibrarian\books:/books
+      - D:\data:/data
     restart: unless-stopped
 
 volumes:
