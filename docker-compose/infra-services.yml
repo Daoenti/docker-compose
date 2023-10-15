@@ -16,6 +16,14 @@ services:
       - C:\Users\yohnt\github:/var/www/cgit
     restart: unless-stopped
 
+  it-tools:
+    image: corentinth/it-tools:latest
+    networks:
+      - infra-services
+    ports:
+      - 8180:80
+    restart: unless-stopped
+
 networks:
   infra-services:
     name: infra-services
