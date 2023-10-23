@@ -71,9 +71,9 @@ services:
     volumes:
       - D:\Docker\foundryvtt\data:/data
     environment:
-      - FOUNDRY_PASSWORD=${F_PASS}
-      - FOUNDRY_USERNAME=${F_USER}
-      - FOUNDRY_ADMIN_KEY=${F_ADMIN}
+      - FOUNDRY_PASSWORD="${F_PASS}"
+      - FOUNDRY_USERNAME="${F_USER}"
+      - FOUNDRY_ADMIN_KEY="${F_ADMIN}"
 
 volumes:
   vault_data:
