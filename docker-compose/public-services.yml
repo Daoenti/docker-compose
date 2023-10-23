@@ -61,6 +61,20 @@ services:
       - gogs_data:/data
     restart: unless-stopped
 
+  foundry:
+    image: felddy/foundryvtt:release
+    hostname: foundry.thecowsaysmoo.net
+    networks:
+      - public-services
+    ports:
+      - 30000:30000
+    volumes:
+      - D:\Docker\foundryvtt\data:/data
+    environment:
+      - FOUNDRY_PASSWORD=${F_PASS}
+      - FOUNDRY_USERNAME=${F_USER}
+      - FOUNDRY_ADMIN_KEY=${F_ADMIN}
+
 volumes:
   vault_data:
   actual_data:
