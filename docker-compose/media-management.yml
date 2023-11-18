@@ -132,11 +132,22 @@ services:
       - D:\data:/data
     restart: unless-stopped
 
+  plex-meta-manager:
+    image: lscr.ia/linuxserver/plex-meta-manager:latest
+    networks:
+      - media-management
+    environment:
+      <<: *common-variables
+    volumes:
+      - pmm_config:/config
+    restart: unless-stopped
+
 volumes:
   tautulli_config:
   overseerr_config:
   bazarr_config:
   lazylibrarian_config:
+  pmm_config:
 
 networks:
   media-management:
