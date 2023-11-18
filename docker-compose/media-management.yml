@@ -133,7 +133,7 @@ services:
     restart: unless-stopped
 
   plex-meta-manager:
-    image: lscr.ia/linuxserver/plex-meta-manager:latest
+    image: lscr.io/linuxserver/plex-meta-manager:latest
     networks:
       - media-management
     environment:
