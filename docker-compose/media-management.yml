@@ -139,6 +139,26 @@ services:
       - backend
     ports:
       - 5454:5454
+    environment:
+      <<: *common-variables
+      DN_API_KEY: ${NOT_APIKEY}
+      DN_RADARR_0_NAME: "Radarr"
+      DN_RADARR_0_URL: "http://192.168.1.150:7878"
+      DN_RADARR_0_API_KEY: ${RAD_APIKEY}
+      DN_PROWLARR_0_NAME: "Prowlarr"
+      DN_PROWLARR_0_URL: "http://192.168.1.150:9696"
+      DN_PROWLARR_0_API_KEY: ${PRO_APIKEY}
+      DN_SONARR_0_NAME: "Sonarr"
+      DN_SONARR_0_URL: "http://192.168.1.150:8989"
+      DN_SONARR_0_API_KEY: ${SON_APIKEY}
+      DN_SABNZBD_0_NAME: "SABnzbd"
+      DN_SABNZBD_0_URL: "http://192.168.1.150:8080"
+      DN_SABNZBD_0_API_KEY: ${SAB_APIKEY}
+      DN_PLEX_0_URL: "http://192.168.1.150:32400"
+      DN_PLEX_TOKEN: ${PLEX_TOK}
+      DN_TAUTULLI_NAME: "Tautulli"
+      DN_TAUTULLI_URL: "http://192.168.1.150:8181"
+      DN_TAUTULLI_API_KEY: ${TAT_APIKEY}
     volumes:
       - notifiarr_config:/config
 
