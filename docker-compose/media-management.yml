@@ -132,11 +132,22 @@ services:
       - D:\data:/data
     restart: unless-stopped
 
+  notifiarr:
+    image: golift/notifiarr
+    networks:
+      - media-management
+      - backend
+    ports:
+      - 5454:5454
+    volumes:
+      - notifiarr_config:/config
+
 volumes:
   tautulli_config:
   overseerr_config:
   bazarr_config:
   lazylibrarian_config:
+  notifiarr_config:
 
 networks:
   media-management:
