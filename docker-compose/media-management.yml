@@ -163,6 +163,7 @@ services:
     volumes:
       - notifiarr_config:/config
       - D:\Data:/data
+      - /etc/machine-id:/etc/machine-id
 
 volumes:
   tautulli_config:
