@@ -134,6 +134,7 @@ services:
 
   notifiarr:
     image: golift/notifiarr
+    hostname: notifiarr
     networks:
       - media-management
       - backend
@@ -161,6 +162,7 @@ services:
       DN_TAUTULLI_API_KEY: ${TAT_APIKEY}
     volumes:
       - notifiarr_config:/config
+      - D:\Data:/data
 
 volumes:
   tautulli_config:
