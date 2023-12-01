@@ -155,7 +155,7 @@ services:
       DN_SABNZBD_0_NAME: "SABnzbd"
       DN_SABNZBD_0_URL: "http://192.168.1.150:8080"
       DN_SABNZBD_0_API_KEY: ${SAB_APIKEY}
-      DN_PLEX_0_URL: "http://192.168.1.150:32400"
+      DN_PLEX_0_URL: ${PLEX_URL}
       DN_PLEX_TOKEN: ${PLEX_TOK}
       DN_TAUTULLI_NAME: "Tautulli"
       DN_TAUTULLI_URL: "http://192.168.1.150:8181"
