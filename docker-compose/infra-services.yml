@@ -24,6 +24,19 @@ services:
       - 8180:80
     restart: unless-stopped
 
+  dockwatch:
+    image: ghcr.io/notifiarr/dockwatch:main
+    ports:
+      - 9999:80/tcp
+    environment:
+      <<: *common-variables
+    volumes:
+      - dockwatch_config:/config
+      - /var/run/docker.sock:/var/run/docker.sock
+
+volumes:
+  dockwatch_config:
+
 networks:
   infra-services:
     name: infra-services
