@@ -132,21 +132,6 @@ services:
       - D:\data\media:/media
     restart: unless-stopped
 
-  lazylibrarian:
-    image: lscr.io/linuxserver/lazylibrarian:latest
-    networks:
-      - media-management
-      - backend
-    ports:
-      - 5299:5299
-    environment:
-      <<: *common-variables
-      DOCKER_MODS: linuxserver/calibre-web:calibre|linuxserver/mods:lazylibrarian-ffmpeg
-    volumes:
-      - lazylibrarian_config:/config
-      - D:\data:/data
-    restart: unless-stopped
-
   notifiarr:
     image: golift/notifiarr
     hostname: notifiarr
