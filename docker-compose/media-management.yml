@@ -38,6 +38,21 @@ services:
       - 8989:8989
     restart: unless-stopped
 
+  readarr:
+    image: lscr.io/linuxserver/readarr:develop
+    networks:
+      - media-management
+      - backend
+    environment:
+      <<: *common-variables
+      DOCKER_MODS: ghcr.io/gilbn/theme.park:readarr
+    volumes:
+      - D:\Docker\readarr\config:/config
+      - D:\data:/data
+    ports:
+      - 8787:8787
+    restart: unless-stopped
+
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
     networks:
