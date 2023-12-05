@@ -39,7 +39,7 @@ services:
     restart: unless-stopped
 
   readarr:
-    image: lscr.io/linuxserver/readarr:develop
+    image: lscr.io/linuxserver/readarr:nightly
     networks:
       - media-management
       - backend
