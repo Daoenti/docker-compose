@@ -28,7 +28,7 @@ services:
       - backend
     ports:
       - 80:80
-      - 8080:8080
+      - 9090:8080
     volumes:
       - D:\Docker\traefik\traefik.yml:/etc/traefik/traefik.yml
       - /var/run/docker.sock:/var/run/docker.sock:ro
