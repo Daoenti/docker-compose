@@ -40,6 +40,7 @@ services:
 volumes:
   vault_data:
   caddy_data:
+    external: true
   caddy_config:
 
 networks:
