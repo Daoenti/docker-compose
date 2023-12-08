@@ -21,7 +21,7 @@ services:
       - vault_data:/data
     restart: unless-stopped
 
-  traefix:
+  traefik:
     image: traefik:v2.10
     networks:
       - public-services
