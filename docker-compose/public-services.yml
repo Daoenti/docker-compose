@@ -30,6 +30,7 @@ services:
       GOOGLE_DOMAINS_ACCESS_TOKEN: ${GOOGLE_DOMAINS_ACCESS_TOKEN}
     ports:
       - 80:80
+      - 443:443
       - 9090:8080
     volumes:
       - D:\Docker\traefik\traefik.yml:/etc/traefik/traefik.yml
