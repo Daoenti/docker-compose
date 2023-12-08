@@ -37,12 +37,12 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
-    whoami:
-      image: traefik/whoami
-      labels:
-        - "traefik.enable=true"
-        - "traefik.http.routers.whoami.rule=Host('whoami.thecowsaysmoo.net')"
-        - "traefik.http.routers.whoami.entrypoints=web"
+  whoami:
+    image: traefik/whoami
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.whoami.rule=Host('whoami.thecowsaysmoo.net')"
+      - "traefik.http.routers.whoami.entrypoints=web"
 
 volumes:
   vault_data:
