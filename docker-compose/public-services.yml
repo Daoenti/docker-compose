@@ -34,13 +34,12 @@ services:
       - "443:443/udp"
     volumes:
       - D:\Docker\caddy\Caddyfile:/etc/caddy/Caddyfile
-      - caddy_data:/data
+      - D:\Docker\caddy\data:/data
       - caddy_config:/config
 
 volumes:
   vault_data:
   caddy_data:
-    external: true
   caddy_config:
 
 networks:
