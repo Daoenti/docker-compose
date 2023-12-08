@@ -1,19 +1,5 @@
 version: '3.9'
 services:
-  npm:
-    image: jc21/nginx-proxy-manager:latest
-    networks:
-      - public-services
-      - backend
-    ports:
-      - 80:80 
-      - 443:443
-      - 81:81 
-    volumes:
-      - D:\Docker\npm\data:/data
-      - D:\Docker\npm\letsencrypt:/etc/letsencrypt
-    restart: unless-stopped
-        
   kavita:
     image: kizaing/kavita:latest
     networks:
@@ -35,49 +21,31 @@ services:
       - vault_data:/data
     restart: unless-stopped
 
-  actual:
-    image: actualbudget/actual-server:latest
+  traefix:
+    image: traefik:latest
     networks:
       - public-services
-    volumes:
-      - actual_data:/data
-    restart: unless-stopped
-
-  thelounge:
-    image: ghcr.io/thelounge/thelounge:latest
-    networks:
-      - public-services
-    volumes:
-      - thelounge_config:/var/opt/thelounge
-    restart: unless-stopped
-
-  gogs:
-    image: gogs/gogs
-    networks:
-      - public-services
+      - backend
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
     ports:
-      - 22:22
+      - 80:80
+      - 8080:8080
     volumes:
-      - gogs_data:/data
-    restart: unless-stopped
+      - /var/run/docker.sock:/var/run/docker.sock:ro
 
-  foundry:
-    image: felddy/foundryvtt:release
-    hostname: foundry.thecowsaysmoo.net
-    networks:
-      - public-services
-    volumes:
-      - D:\Docker\foundryvtt\data:/data
-    environment:
-      - FOUNDRY_PASSWORD="${F_PASS}"
-      - FOUNDRY_USERNAME="${F_USER}"
-      - FOUNDRY_ADMIN_KEY="${F_ADMIN}"
+    whoami:
+      image: traefik/whoami
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.whoami.rule=Host('whoami.thecowsaysmoo.net')"
+        - "traefik.http.routers.whoami.entrypoints=web"
 
 volumes:
   vault_data:
-  actual_data:
-  thelounge_config:
-  gogs_data:
 
 networks:
   public-services:
