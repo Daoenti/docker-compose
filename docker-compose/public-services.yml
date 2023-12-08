@@ -21,24 +21,25 @@ services:
       - vault_data:/data
     restart: unless-stopped
 
-  traefik:
-    image: traefik:v2.10
+  caddy:
+    image: caddy:2.7
     networks:
       - public-services
       - backend
-    environment:
-      GOOGLE_DOMAINS_ACCESS_TOKEN: ${GOOGLE_DOMAINS_ACCESS_TOKEN}
+    cap_add:
+      - NET_ADMIN
     ports:
       - 80:80
       - 443:443
-      - 9090:8080
     volumes:
-      - D:\Docker\traefik\traefik.yml:/etc/traefik/traefik.yml
-      - D:\Docker\traefik\letsencrypt:/etc/letsencrypt
-      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - D:\Docker\caddy\Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
 
 volumes:
   vault_data:
+  caddy_data:
+  caddy_config:
 
 networks:
   public-services:
