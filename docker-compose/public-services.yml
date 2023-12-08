@@ -33,6 +33,7 @@ services:
       - 9090:8080
     volumes:
       - D:\Docker\traefik\traefik.yml:/etc/traefik/traefik.yml
+      - D:\Docker\traefik\letsencrypt:/etc/letsencrypt
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
 volumes:
