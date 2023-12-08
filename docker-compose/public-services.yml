@@ -37,7 +37,7 @@ services:
     image: traefik/whoami
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.whoami.rule=Host('whoami.thecowsaysmoo.net')"
+      - "traefik.http.routers.whoami.rule=Host(`whoami.thecowsaysmoo.net`)"
       - "traefik.http.routers.whoami.entrypoints=web"
 
 volumes:
