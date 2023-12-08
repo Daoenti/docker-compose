@@ -31,6 +31,7 @@ services:
     ports:
       - 80:80
       - 443:443
+      - "443:443/udp"
     volumes:
       - D:\Docker\caddy\Caddyfile:/etc/caddy/Caddyfile
       - caddy_data:/data
