@@ -164,6 +164,19 @@ services:
       - notifiarr_config:/config
       - D:\Data:/data
       - /etc/machine-id:/etc/machine-id
+    restart: unless-stopped
+
+  autobrr:
+    image: ghcr.io/autobrr/autobrr:latest
+    networks:
+      - media-management
+    ports:
+      - 7474:7474
+    environment:
+      <<: *common-variables
+    volumes:
+      - D:\Docker\autobrr\config:/config
+    restart: unless-stopped
 
 volumes:
   tautulli_config:
