@@ -33,6 +33,7 @@ services:
       - 443:443
       - "443:443/udp"
     volumes:
+      - D:\Docker\caddy\caddy:/usr/bin/caddy
       - D:\Docker\caddy\Caddyfile:/etc/caddy/Caddyfile
       - D:\Docker\caddy\data:/data
       - caddy_config:/config
