@@ -24,19 +24,24 @@ services:
       - 8180:80
     restart: unless-stopped
 
-  dockwatch:
-    image: ghcr.io/notifiarr/dockwatch:main
+  uptime-kuma:
+    image: louislam/uptime-kuma:1
+    networks:
+      - infra-services
+      - backend
     ports:
-      - 9999:80/tcp
-    environment:
-      <<: *common-variables
+      - 3001:3001
     volumes:
-      - dockwatch_config:/config
-      - /var/run/docker.sock:/var/run/docker.sock
+      - uptime-kuma:/app/data
+    restart: unless-stopped
 
 volumes:
   dockwatch_config:
+  uptime-kuma:
 
 networks:
   infra-services:
     name: infra-services
+  backend:
+    name: backend
+    external: true
