@@ -36,8 +36,24 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     restart: unless-stopped
 
+  homarr:
+    image: ghcr.io/ajnart/homarr:latest
+    networks:
+      - infra-services
+      - backend
+    ports:
+      - 7575:7575
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - homarr_config:/app/data/configs
+      - homarr_icons:/app/public/icons
+      - homarr_data:/data
+
 volumes:
   dockwatch_config:
+  homarr_config:
+  homarr_icons:
+  homarr_data:
   uptime-kuma:
 
 networks:
