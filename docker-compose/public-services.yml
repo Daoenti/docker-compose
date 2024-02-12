@@ -38,10 +38,37 @@ services:
       - D:\Docker\caddy\data:/data
       - caddy_config:/config
 
+  pastefy-db:
+    image: mariadb:10.11
+    volumes:
+      - pastefy_dbvol:/var/lib/mysql
+
+      environment:
+        MYSQL_ROOT_PASSWORD: ${PASTEFY_DB_ROOT_PWD}
+        MYSQL_DATABASE: ${PASTEFY_DB}
+        MYSQL_USER: ${PASTEFY_DB_USER}
+        MYSQL_PASSWORD: ${PASTEFY_DB_PWD}
+
+    pastefy:
+      depends_on:
+        - db
+      image: interaapps/pastefy:latest
+      environment:
+        HTTP_SERVER_PORT: 80
+        HTTP_SERVER_CORS: "*"
+        DATABASE_DRIVER: mysql
+        DATABASE_NAME: ${PASTEFY_DB}
+        DATABASE_USER: ${PASTEFY_DB_USER}
+        DATABASE_PASSWORD: ${PASTEFY_DB_PWD}
+        DATABASE_HOST: public-services-pastefy-db-1 
+        DATABASE_PORT: 3306
+        SERVER_NAME: "https://pastefy.thecowsaysmoo.net"
+
 volumes:
   vault_data:
   caddy_data:
   caddy_config:
+  pastefy_dbvol:
 
 networks:
   public-services:
