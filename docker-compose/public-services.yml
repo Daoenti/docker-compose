@@ -43,11 +43,11 @@ services:
     volumes:
       - pastefy_dbvol:/var/lib/mysql
 
-      environment:
-        MYSQL_ROOT_PASSWORD: ${PASTEFY_DB_ROOT_PWD}
-        MYSQL_DATABASE: ${PASTEFY_DB}
-        MYSQL_USER: ${PASTEFY_DB_USER}
-        MYSQL_PASSWORD: ${PASTEFY_DB_PWD}
+    environment:
+      MYSQL_ROOT_PASSWORD: ${PASTEFY_DB_ROOT_PWD}
+      MYSQL_DATABASE: ${PASTEFY_DB}
+      MYSQL_USER: ${PASTEFY_DB_USER}
+      MYSQL_PASSWORD: ${PASTEFY_DB_PWD}
 
     pastefy:
       depends_on:
