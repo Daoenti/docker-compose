@@ -44,7 +44,6 @@ services:
       - public-services
     environment:
       BIN_PORT: 6163
-      BIN_LIMITS: 16
       BIN_CLIENT_DESC: moo
     volumes:
       - pastebin_data:/upload
