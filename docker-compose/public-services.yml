@@ -41,7 +41,7 @@ services:
   pastebin:
     image: wantguns/bin
     networks:
-      - public_services
+      - public-services
     environment:
       BIN_PORT: 6163
       BIN_LIMITS: "16 MiB"
