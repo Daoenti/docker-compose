@@ -38,20 +38,23 @@ services:
       - D:\Docker\caddy\data:/data
       - caddy_config:/config
 
-  wastebin:
-    image: quxfoo/wastebin:latest
+  pastebin:
+    image: wantguns/bin
     networks:
-      - public-services
+      - public_services
     environment:
-      WASTEBIN_DATABASE_PATH: /data/state.db
+      BIN_PORT: 6163
+      BIN_LIMITS: {form="16 MiB"}
+      BIN_CLIENT_DESC: moo
     volumes:
-      - wastebin_db:/data 
+      - pastebin_data:/upload
+
 
 volumes:
   vault_data:
   caddy_data:
   caddy_config:
-  wastebin_db:
+  pastebin_data:
 
 networks:
   public-services:
