@@ -78,7 +78,7 @@ services:
     restart: unless-stopped
 
   whisparr:
-    image: cr.hotio.dev/hotio/whisparr
+    image: ghcr.io/hotio/whisparr
     networks:
       - media-management
       - backend
