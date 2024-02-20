@@ -48,6 +48,16 @@ services:
     volumes:
       - pastebin_data:/upload
 
+  foundry:
+    image: felddy/foundryvtt:release
+    networks:
+      - public-services
+    environment:
+      FOUNDRY_PASSWORD: ${F_PWD}
+      FOUNDRY_USERNAME: ${F_USER}
+      FOUNDRY_ADMIN_KEY: ${F_ADMIN_KEY}
+    volumes:
+      - D:\Docker\foundryvtt\data:/data
 
 volumes:
   vault_data:
