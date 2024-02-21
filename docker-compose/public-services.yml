@@ -56,6 +56,7 @@ services:
       FOUNDRY_PASSWORD: ${F_PWD}
       FOUNDRY_USERNAME: ${F_USER}
       FOUNDRY_ADMIN_KEY: ${F_ADMIN_KEY}
+      FOUNDRY_RELEASE_URL: ${F_URL}
     volumes:
       - D:\Docker\foundryvtt\data:/data
 
