@@ -53,10 +53,15 @@ services:
     networks:
       - public-services
     environment:
-      FOUNDRY_PASSWORD: ${F_PWD}
+      FOUNDRY_PASSWORD: ${F_PASS}
       FOUNDRY_USERNAME: ${F_USER}
       FOUNDRY_ADMIN_KEY: ${F_ADMIN_KEY}
       FOUNDRY_RELEASE_URL: ${F_URL}
+      CONTAINER_CACHE: /data/cache
+      FOUNDRY_HOSTNAME: foundry.thecowsaysmoo.net
+      FOUNDRY_MINIFY_STATIC_FILES: true
+      FOUNDRY_PROXY_PORT: 443
+      FOUNDRY_PROXY_SSL: true
     volumes:
       - D:\Docker\foundryvtt\data:/data
 
