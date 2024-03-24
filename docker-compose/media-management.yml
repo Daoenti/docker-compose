@@ -2,7 +2,7 @@ version: "3.8"
 
 x-common-variables: &common-variables
   PUID: 1000
-  PGID: 1000
+  PGID: 973
   TZ: Etc/UTC
   TP_THEME: overseerr
 
