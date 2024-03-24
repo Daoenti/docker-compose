@@ -21,23 +21,6 @@ services:
       - vault_data:/data
     restart: unless-stopped
 
-  caddy:
-    image: caddy:2.7
-    networks:
-      - public-services
-      - backend
-    cap_add:
-      - NET_ADMIN
-    ports:
-      - 80:80
-      - 443:443
-      - "443:443/udp"
-    volumes:
-      - /opt/docker/caddy/caddy:/usr/bin/caddy
-      - /opt/docker/caddy/Caddyfile:/etc/caddy/Caddyfile
-      - caddy_data:/data
-      - caddy_config:/config
-
   pastebin:
     image: wantguns/bin
     networks:
@@ -50,7 +33,6 @@ services:
 
 volumes:
   vault_data:
-  caddy_data:
   caddy_config:
   kavita_config:
   pastebin_data:
