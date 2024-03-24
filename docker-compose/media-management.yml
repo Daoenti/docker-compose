@@ -88,6 +88,8 @@ services:
     networks:
       - media-management
       - backend
+    ports:
+      - 5055:5055
     environment: 
       <<: *common-variables
     volumes:
