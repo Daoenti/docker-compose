@@ -138,6 +138,7 @@ services:
       DN_TAUTULLI_NAME: "Tautulli"
       DN_TAUTULLI_URL: "http://192.168.1.150:8181"
       DN_TAUTULLI_API_KEY: ${TAT_APIKEY}
+      DN_UI_PASSWORD: ${UI_PASS}
     volumes:
       - notifiarr_config:/config
       - /opt/data:/data
