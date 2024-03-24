@@ -17,8 +17,8 @@ services:
       UMASK_SET: 022
       DOCKER_MODS: ghcr.io/gilbn/theme.park:radarr
     volumes:
-      - D:\data:/data
-      - D:\Docker\radarr\config:/config
+      - /opt/data:/data
+      - /opt/docker/radarr/config:/config
     ports:
       - 7878:7878/tcp
     restart: unless-stopped
@@ -32,8 +32,8 @@ services:
       <<: *common-variables
       DOCKER_MODS: ghcr.io/gilbn/theme.park:sonarr
     volumes:
-      - D:\Docker\sonarr\config:/config
-      - D:\data:/data
+      - /opt/docker/sonarr/config:/config
+      - /opt/data:/data
     ports:
       - 8989:8989
     restart: unless-stopped
@@ -47,8 +47,8 @@ services:
       <<: *common-variables
       DOCKER_MODS: ghcr.io/gilbn/theme.park:readarr
     volumes:
-      - D:\Docker\readarr\config:/config
-      - D:\data:/data
+      - /opt/docker/readarr/config:/config
+      - /opt/data:/data
     ports:
       - 8787:8787
     restart: unless-stopped
@@ -64,17 +64,7 @@ services:
     ports:
       - 9696:9696
     volumes:
-      - D:\Docker\prowlarr\config:/config
-    restart: unless-stopped
-
-  recyclarr:
-    image: ghcr.io/recyclarr/recyclarr
-    user: 1000:1000
-    networks:
-      - media-management
-    volumes:
-      - D:\Docker\recyclarr\config:/config
-    environment: *common-variables
+      - /opt/docker/prowlarr/config:/config
     restart: unless-stopped
 
   whisparr:
@@ -89,9 +79,8 @@ services:
       UMASK: 002
       TP_HOTIO: true
     volumes:
-      - D:\Docker\whisparr\config:/config
-      - D:\data:/data
-      - D:\Docker\scripts\98-themepark-whisparr:/etc/cont-init.d/98-themepark
+      - /opt/docker/whisparr/config:/config
+      - /opt/data:/data
     restart: unless-stopped
 
   overseerr:
@@ -117,19 +106,6 @@ services:
       DOCKER_MODS: ghcr.io/gilbn/theme.park:tautulli
     volumes:
       - tautulli_config:/config
-    restart: unless-stopped
-
-  bazarr:
-    image: lscr.io/linuxserver/bazarr:latest
-    networks:
-      - media-management
-    ports:
-      - 6767:6767
-    environment:
-      <<: *common-variables
-    volumes:
-      - bazarr_config:/config
-      - D:\data\media:/media
     restart: unless-stopped
 
   notifiarr:
@@ -162,27 +138,13 @@ services:
       DN_TAUTULLI_API_KEY: ${TAT_APIKEY}
     volumes:
       - notifiarr_config:/config
-      - D:\Data:/data
+      - /opt/data:/data
       - /etc/machine-id:/etc/machine-id
-    restart: unless-stopped
-
-  autobrr:
-    image: ghcr.io/autobrr/autobrr:latest
-    networks:
-      - media-management
-    ports:
-      - 7474:7474
-    environment:
-      <<: *common-variables
-    volumes:
-      - D:\Docker\autobrr\config:/config
     restart: unless-stopped
 
 volumes:
   tautulli_config:
   overseerr_config:
-  bazarr_config:
-  lazylibrarian_config:
   notifiarr_config:
 
 networks:
