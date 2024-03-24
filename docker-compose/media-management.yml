@@ -152,4 +152,3 @@ networks:
     name: media-management
   backend:
     name: backend
-    external: true

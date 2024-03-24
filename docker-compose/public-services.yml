@@ -42,3 +42,4 @@ networks:
     name: public-services
   backend:
     name: backend
+    externa: true 
