@@ -93,7 +93,7 @@ services:
     environment: 
       <<: *common-variables
     volumes:
-      - overseerr_config:/app/config
+      - /opt/docker/overseerr/config:/app/config
     restart: unless-stopped
 
   tautulli:
