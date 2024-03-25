@@ -144,6 +144,15 @@ services:
       - /etc/machine-id:/etc/machine-id
     restart: unless-stopped
 
+  recyclarr:
+    image: ghcr.io/recyclarr/recyclarr
+    environment: *common-variables
+    networks:
+      - media-management
+    volumes:
+      - /opt/docker/recyclarr/config:/config
+    restart: unless-stopped
+
 volumes:
   tautulli_config:
   overseerr_config:
