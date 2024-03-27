@@ -5,9 +5,8 @@ services:
     networks:
       - public-services
     volumes:
-        - /opt/data/comics/incoming:/comics
-        - /opt/data/comics/organized:/comics-organized
-        - kavita_config:/kavita/config
+        - /opt/data:/data
+        - /opt/docker/kavita/config:/kavita/config
     restart: unless-stopped
 
   vault:
@@ -18,7 +17,7 @@ services:
       SIGNUPS_ALLOWED: true
       ADMIN_TOKEN: ${VAULT_TOKEN}
     volumes:
-      - vault_data:/data
+      - /opt/docker/vault/data:/data
     restart: unless-stopped
 
   pastebin:
@@ -29,13 +28,7 @@ services:
       BIN_PORT: 6163
       BIN_CLIENT_DESC: moo
     volumes:
-      - pastebin_data:/upload
-
-volumes:
-  vault_data:
-  caddy_config:
-  kavita_config:
-  pastebin_data:
+      - /opt/docker/pastebin/data:/upload
 
 networks:
   public-services:
