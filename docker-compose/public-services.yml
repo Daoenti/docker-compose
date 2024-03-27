@@ -1,7 +1,7 @@
 version: '3.9'
 services:
   kavita:
-    image: kizaing/kavita:latest
+    image: jvmilazz0/kavita:latest
     networks:
       - public-services
     ports:
