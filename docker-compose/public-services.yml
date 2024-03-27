@@ -1,9 +1,16 @@
 version: '3.9'
+
+x-common-variables: &common-variables
+  PUID: 1000
+  PGID: 973
+  TZ: Etc/UTC
+
 services:
   kavita:
     image: jvmilazz0/kavita:latest
     networks:
       - public-services
+    environment: *common-variabled
     ports:
       - 5000:5000
     volumes:
@@ -18,6 +25,7 @@ services:
     ports:
       - 8085:80
     environment:
+      <<: *common-variables
       SIGNUPS_ALLOWED: true
       ADMIN_TOKEN: ${VAULT_TOKEN}
     volumes:
@@ -29,6 +37,7 @@ services:
     networks:
       - public-services
     environment:
+      <<: *common-variables
       BIN_PORT: 6163
       BIN_CLIENT_DESC: moo
     volumes:
