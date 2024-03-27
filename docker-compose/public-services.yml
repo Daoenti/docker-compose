@@ -4,6 +4,8 @@ services:
     image: kizaing/kavita:latest
     networks:
       - public-services
+    ports:
+      - 5000:5000
     volumes:
         - /opt/data:/data
         - /opt/docker/kavita/config:/kavita/config
@@ -13,6 +15,8 @@ services:
     image: vaultwarden/server:latest
     networks:
       - public-services
+    ports:
+      - 8085:80
     environment:
       SIGNUPS_ALLOWED: true
       ADMIN_TOKEN: ${VAULT_TOKEN}
