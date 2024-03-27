@@ -10,7 +10,7 @@ services:
     image: jvmilazz0/kavita:latest
     networks:
       - public-services
-    environment: *common-variabled
+    environment: *common-variables
     ports:
       - 5000:5000
     volumes:
