@@ -17,12 +17,21 @@ services:
     ports:
       - 3001:3001
     volumes:
-      - uptime-kuma:/app/data
+      - /opt/docker/uptime-kuma/data:/app/data
       - /var/run/docker.sock:/var/run/docker.sock
     restart: unless-stopped
 
-volumes:
-  uptime-kuma:
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    networks:
+      - infra-services
+      - backend
+    ports:
+      - 3000:3000
+    volumes:
+      - /opt/docker/homepage/config:/app/config
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
 
 networks:
   infra-services:

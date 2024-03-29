@@ -10,6 +10,7 @@ services:
     image: jvmilazz0/kavita:latest
     networks:
       - public-services
+      - backend
     environment: *common-variables
     ports:
       - 5000:5000
@@ -22,6 +23,7 @@ services:
     image: vaultwarden/server:latest
     networks:
       - public-services
+      - backend
     ports:
       - 8085:80
     environment:
@@ -36,6 +38,7 @@ services:
     image: wantguns/bin
     networks:
       - public-services
+      - backend
     environment:
       <<: *common-variables
       BIN_PORT: 6163
