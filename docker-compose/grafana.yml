@@ -12,7 +12,7 @@ services:
       <<: *common-variables
       GF_SERVER_ROOT_URL: http://grafana.thecowsaysmoo.net/
       GF_INSTALL_PLUGINS: grafana-clock-panel
-    user: 0
+    user: '0'
     ports:
       - 4000:3000
     volumes:
