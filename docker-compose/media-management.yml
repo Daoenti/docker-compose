@@ -59,7 +59,7 @@ services:
       - media-management
       - backend
     environment:
-      <<: *common-variable
+      <<: *common-variables
       DOCKER_MODS: ghcr.io/gilbn/theme.park:lidarr
     volumes:
       - /opt/docker/lidarr/config:/config
