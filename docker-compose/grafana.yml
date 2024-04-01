@@ -1,9 +1,15 @@
 version: "3.8"
 
+x-common-variables: &common-variables
+  PUID: 1000
+  PGID: 973
+  TZ: Etc/UTC
+
 services:
   grafana:
     image: grafana/grafana-enterprise
     environment:
+      <<: *common-variables
       - GF_SERVER_ROOT_URL=http://grafana.thecowsaysmoo.net/
       - GF_INSTALL_PLUGINS=grafana-clock-panel
     ports:
