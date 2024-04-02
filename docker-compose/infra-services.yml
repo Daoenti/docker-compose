@@ -33,6 +33,17 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     restart: unless-stopped
 
+  prometheus:
+    image: prom/prometheus
+    networks:
+      - infra-services
+      - backend
+    ports:
+      - 9090:9090
+    volumes:
+      - /opt/docker/prometheus:/etc/prometheus
+    restart: unless-stopped
+
 networks:
   infra-services:
     name: infra-services
