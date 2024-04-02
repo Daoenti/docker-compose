@@ -48,7 +48,8 @@ services:
       - 9090:9090
     user: '0'
     volumes:
-      - /opt/docker/prometheus:/etc/prometheus
+      - /opt/docker/prometheus/config:/etc/prometheus
+      - /opt/docker/prometheus/prometheus:/prometheus
     restart: unless-stopped
 
 networks:
