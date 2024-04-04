@@ -45,7 +45,7 @@ services:
       - /dev/kmsg
 
 networks:
-  infra-services:
+  grafana:
     name: grafana
   backend:
     name: backend
