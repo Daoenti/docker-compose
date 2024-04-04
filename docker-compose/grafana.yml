@@ -8,6 +8,7 @@ x-common-variables: &common-variables
 services:
   grafana:
     image: grafana/grafana-enterprise
+    container_name: grafana
     environment:
       <<: *common-variables
       GF_SERVER_ROOT_URL: http://grafana.thecowsaysmoo.net/
@@ -25,6 +26,7 @@ services:
 
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:latest
+    container_name: cadvisor
     network_mode: host
     ports:
       - 8085:8080
