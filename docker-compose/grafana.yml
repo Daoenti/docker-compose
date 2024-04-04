@@ -33,7 +33,7 @@ services:
       - grafana
       - backend
     ports:
-      - 8085:8080
+      - 9080:8080
     volumes:
       - /:/rootfs
       - /var/run:/var/run
