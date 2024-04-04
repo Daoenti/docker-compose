@@ -14,7 +14,9 @@ services:
       GF_SERVER_ROOT_URL: http://grafana.thecowsaysmoo.net/
       GF_INSTALL_PLUGINS: grafana-clock-panel
     user: '0'
-    network_mode: host
+    networks:
+      - grafana
+      - backend
     ports:
       - 4000:3000
     volumes:
@@ -27,7 +29,9 @@ services:
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:latest
     container_name: cadvisor
-    network_mode: host
+    networks: 
+      - grafana
+      - backend
     ports:
       - 8085:8080
     volumes:
@@ -39,3 +43,10 @@ services:
     privileged: true
     devices:
       - /dev/kmsg
+
+networks:
+  infra-services:
+    name: grafana
+  backend:
+    name: backend
+    external: true
