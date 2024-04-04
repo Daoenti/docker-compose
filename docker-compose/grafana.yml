@@ -13,8 +13,27 @@ services:
       GF_SERVER_ROOT_URL: http://grafana.thecowsaysmoo.net/
       GF_INSTALL_PLUGINS: grafana-clock-panel
     user: '0'
+    network_mode: host
     ports:
       - 4000:3000
     volumes:
-      - /opt/docker/grafana:/var/lib/grafana
+      - /opt/docker/grafana/data:/var/lib/grafana
+      - /opt/docker/grafana/config:/etc/grafana
     restart: unless-stopped
+    depends_on:
+      - cadvisor
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    network_mode: host
+    ports:
+      - 8085:8080
+    volumes:
+      - /:/rootfs
+      - /var/run:/var/run
+      - /sys:/sys
+      - /var/lib/docker:/var/lib/docker
+      - /dev/disk:/dev/disk
+    privileged: true
+    devices:
+      - /dev/kmsg
