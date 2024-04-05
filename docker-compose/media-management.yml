@@ -9,6 +9,7 @@ x-common-variables: &common-variables
 services:
   radarr:
     image: linuxserver/radarr:latest
+    container_name: radarr
     networks:
       - media-management
       - backend
@@ -25,6 +26,7 @@ services:
 
   sonarr:
     image: lscr.io/linuxserver/sonarr:develop
+    container_name: sonarr
     networks:
       - media-management
       - backend
@@ -40,6 +42,7 @@ services:
 
   readarr:
     image: lscr.io/linuxserver/readarr:nightly
+    container_name: readarr
     networks:
       - media-management
       - backend
@@ -55,6 +58,7 @@ services:
 
   lidarr:
     image: lscr.io/linuxserver/lidarr:latest
+    container_name: lidarr
     networks:
       - media-management
       - backend
@@ -70,6 +74,7 @@ services:
 
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
+    container_name: prowlarr
     networks:
       - media-management
       - backend
@@ -84,6 +89,7 @@ services:
 
   whisparr:
     image: ghcr.io/hotio/whisparr
+    container_name: whisparr
     networks:
       - media-management
       - backend
@@ -100,6 +106,7 @@ services:
 
   overseerr:
     image: sctx/overseerr:latest
+    container_name: overseerr
     networks:
       - media-management
       - backend
@@ -113,6 +120,7 @@ services:
 
   tautulli:
     image: lscr.io/linuxserver/tautulli:latest
+    container_name: tautulli
     networks:
       - media-management
       - backend
@@ -127,6 +135,7 @@ services:
 
   notifiarr:
     image: golift/notifiarr
+    container_name: notifiarr
     hostname: notifiarr
     networks:
       - media-management

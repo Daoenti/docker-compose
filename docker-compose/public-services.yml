@@ -8,6 +8,7 @@ x-common-variables: &common-variables
 services:
   kavita:
     image: jvmilazz0/kavita:latest
+    container_name: kavita
     networks:
       - public-services
       - backend
@@ -21,6 +22,7 @@ services:
 
   vault:
     image: vaultwarden/server:latest
+    container_name: vault
     networks:
       - public-services
       - backend
@@ -36,6 +38,7 @@ services:
 
   pastebin:
     image: wantguns/bin
+    container_name: patebin
     networks:
       - public-services
       - backend

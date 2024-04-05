@@ -8,6 +8,7 @@ x-common-variables: &common-variables
 services:
   it-tools:
     image: corentinth/it-tools:latest
+    container_name: it-tools
     networks:
       - infra-services
     ports:
@@ -16,6 +17,7 @@ services:
 
   uptime-kuma:
     image: louislam/uptime-kuma:1
+    container_name: uptime-kuma
     networks:
       - infra-services
       - backend
@@ -28,6 +30,7 @@ services:
 
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
+    container_name: homepage
     networks:
       - infra-services
       - backend
@@ -40,6 +43,7 @@ services:
 
   prometheus:
     image: prom/prometheus
+    container_name: prometheus
     environment: *common-variables
     networks:
       - infra-services
