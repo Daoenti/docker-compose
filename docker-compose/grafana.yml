@@ -12,7 +12,7 @@ services:
     environment:
       <<: *common-variables
       GF_SERVER_ROOT_URL: http://grafana.thecowsaysmoo.net/
-      GF_INSTALL_PLUGINS: grafana-clock-panel
+      GF_INSTALL_PLUGINS: grafana-clock-panel, grafana-piechart-panel
     user: '0'
     networks:
       - grafana
@@ -49,7 +49,7 @@ services:
     container_name: pihole-exporter
     environment:
       PIHOLE_HOSTNAME: ${PIHOLE_IP}
-      PIHOLE_API_TOKE: ${PIHOLE_API}
+      PIHOLE_API_TOKEN: ${PIHOLE_API}
       PORT: 9617
     networks:
       - grafana
