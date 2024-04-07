@@ -43,6 +43,20 @@ services:
     privileged: true
     devices:
       - /dev/kmsg
+      
+  pihole-exporter:
+    image: ekofr/pihole-exporter:latest
+    container_name: pihole-exporter
+    environment:
+      PIHOLE_HOSTNAME: ${PIHOLE_IP}
+      PIHOLE_API_TOKE: ${PIHOLE_API}
+      PORT: 9617
+    networks:
+      - grafana
+      - backend
+    ports:
+      - 9617:9617
+    restart: unless-stopped
 
 networks:
   grafana:
