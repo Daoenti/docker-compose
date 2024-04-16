@@ -1,5 +1,3 @@
-version: "3.8"
-
 x-common-variables: &common-variables
   PUID: 1000
   PGID: 973
@@ -8,7 +6,7 @@ x-common-variables: &common-variables
 
 services:
   radarr:
-    image: linuxserver/radarr:latest
+    image: lscr.io/linuxserver/radarr:latest
     container_name: radarr
     networks:
       - media-management
@@ -25,7 +23,7 @@ services:
     restart: unless-stopped
 
   sonarr:
-    image: linuxserver/sonarr:develop
+    image: lscr.io/linuxserver/sonarr:develop
     container_name: sonarr
     networks:
       - media-management
@@ -41,7 +39,7 @@ services:
     restart: unless-stopped
 
   readarr:
-    image: linuxserver/readarr:nightly
+    image: lscr.io/linuxserver/readarr:nightly
     container_name: readarr
     networks:
       - media-management
@@ -57,7 +55,7 @@ services:
     restart: unless-stopped
 
   lidarr:
-    image: linuxserver/lidarr:latest
+    image: lscr.io/linuxserver/lidarr:latest
     container_name: lidarr
     networks:
       - media-management
@@ -73,7 +71,7 @@ services:
     restart: unless-stopped
 
   prowlarr:
-    image: linuxserver/prowlarr:latest
+    image: lscr.io/linuxserver/prowlarr:latest
     container_name: prowlarr
     networks:
       - media-management
@@ -105,7 +103,7 @@ services:
     restart: unless-stopped
 
   overseerr:
-    image: sctx/overseerr:latest
+    image: lscr.io/linuxserver/overseerr:latest
     container_name: overseerr
     networks:
       - media-management
@@ -115,11 +113,11 @@ services:
     environment: 
       <<: *common-variables
     volumes:
-      - /opt/docker/overseerr/config:/app/config
+      - /opt/docker/overseerr/config:/config
     restart: unless-stopped
 
   tautulli:
-    image: linuxserver/tautulli:latest
+    image: lscr.io/linuxserver/tautulli:latest
     container_name: tautulli
     networks:
       - media-management
@@ -130,7 +128,7 @@ services:
       <<: *common-variables
       DOCKER_MODS: ghcr.io/gilbn/theme.park:tautulli
     volumes:
-      - tautulli_config:/config
+      - /opt/docker/tautulli/config:/config
     restart: unless-stopped
 
   notifiarr:
@@ -167,10 +165,6 @@ services:
       - /opt/data:/data
       - /etc/machine-id:/etc/machine-id
     restart: unless-stopped
-
-volumes:
-  tautulli_config:
-  overseerr_config:
 
 networks:
   media-management:
