@@ -131,15 +131,19 @@ services:
       - /opt/docker/tautulli/config:/config
     restart: unless-stopped
 
-  kapowarr:
-    image: mrcas/kapowarr:latest
-    container_name: kapowarr
+  mylar3:
+    image: lscr.io/linuxserver/mylar3:nightly
+    container_name: mylar3
+    environment:
+      <<: *common-variables
     volumes:
-      - /opt/docker/kapowarr/db:/app/db
-      - /opt/data/usenet/download/comics:/app/temp_downloads
-      - /opt/data/media/comics:/comics-1
+      - /opt/docker/mylar3/config:/config
+      - /opt/data/media/comics:/comics
+      - /opt/data/usenet/download/comics:/downloads
+      - /opt/data/media/work:/work
     ports:
-      - '5656:5656'
+      - 8090:8090
+    restart: unless-stopped
 
   notifiarr:
     image: golift/notifiarr
