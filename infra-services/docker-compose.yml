@@ -54,6 +54,15 @@ services:
       - /opt/docker/prometheus/prometheus:/prometheus
     restart: unless-stopped
 
+  watchtower:
+    image: containrrr/watchtower
+    container_name: watchtower
+    volumes:
+      - /opt/docker/watchtower/config.json:/config.json
+      - /etc/localtime:/etc/localtime
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --cleanup --interval 600
+
 networks:
   infra-services:
     name: infra-services

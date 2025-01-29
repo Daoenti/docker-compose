@@ -201,6 +201,20 @@ services:
       - /etc/machine-id:/etc/machine-id
     restart: unless-stopped
 
+  sabnzbd:
+    image: lscr.io/linuxserver/sabnzbd:latest
+    container_name: sabnzbd
+    environment:
+      <<: *common-variables
+    volumes: 
+      - /opt/docker/sabnzbd/config:/config
+      - /opt/data:/data
+    ports:
+      - 8080:8080
+    networks:
+      - media-management
+      - backend
+
 networks:
   media-management:
     name: media-management
