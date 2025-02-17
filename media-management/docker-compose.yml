@@ -215,6 +215,23 @@ services:
       - media-management
       - backend
 
+  gameyfin:
+    image: grimsi/gameyfin:latest
+    container_name: gamefin
+    environment:
+      <<: *common-variables
+      GAMEYFIN_USER: ${GAMEY_USER}
+      GAMEYFIN_PASSWORD: ${GAMEY_PASS}
+      GAMEYFIN_IGDB_API_CLIENT_ID: ${IGDB_CLIENTID}
+      GAMEYFIN_IGDB_API_CLIENT_SECRET: ${IGDB_CLIENTSEC}
+    volumes:
+      - /opt/data/media/games:/opt/gameyfin-library
+    ports:
+      - 8086:8080
+    networks:
+      - media-management
+      - backend
+
 networks:
   media-management:
     name: media-management
