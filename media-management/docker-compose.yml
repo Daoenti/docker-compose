@@ -8,8 +8,6 @@ services:
   radarr:
     image: lscr.io/linuxserver/radarr:latest
     container_name: radarr
-    depends_on:
-      - prowlarr
     networks:
       - media-management
       - backend
@@ -27,8 +25,6 @@ services:
   sonarr:
     image: lscr.io/linuxserver/sonarr:develop
     container_name: sonarr
-    depends_on:
-      - prowlarr
     networks:
       - media-management
       - backend
@@ -45,8 +41,6 @@ services:
   readarr:
     image: lscr.io/linuxserver/readarr:nightly
     container_name: readarr
-    depends_on:
-      - prowlarr
     networks:
       - media-management
       - backend
@@ -63,8 +57,6 @@ services:
   lidarr:
     image: lscr.io/linuxserver/lidarr:latest
     container_name: lidarr
-    depends_on:
-      - prowlarr
     networks:
       - media-management
       - backend
@@ -96,8 +88,6 @@ services:
   whisparr:
     image: ghcr.io/hotio/whisparr
     container_name: whisparr
-    depends_on:
-      - prowlarr
     networks:
       - media-management
       - backend
@@ -115,9 +105,6 @@ services:
   overseerr:
     image: lscr.io/linuxserver/overseerr:latest
     container_name: overseerr
-    depends_on:
-      - radarr
-      - sonarr
     networks:
       - media-management
       - backend
@@ -147,8 +134,6 @@ services:
   mylar3:
     image: lscr.io/linuxserver/mylar3:nightly
     container_name: mylar3
-    depends_on:
-      - prowlarr
     environment:
       <<: *common-variables
     volumes:
@@ -162,13 +147,6 @@ services:
   notifiarr:
     image: golift/notifiarr
     container_name: notifiarr
-    depends_on:
-      - radarr
-      - prowlarr
-      - sonarr
-      - lidarr
-      - tautulli
-      - overseerr
     hostname: notifiarr
     networks:
       - media-management
@@ -211,23 +189,6 @@ services:
       - /opt/data:/data
     ports:
       - 8080:8080
-    networks:
-      - media-management
-      - backend
-
-  gameyfin:
-    image: grimsi/gameyfin:latest
-    container_name: gamefin
-    environment:
-      <<: *common-variables
-      GAMEYFIN_USER: ${GAMEY_USER}
-      GAMEYFIN_PASSWORD: ${GAMEY_PASS}
-      GAMEYFIN_IGDB_API_CLIENT_ID: ${IGDB_CLIENTID}
-      GAMEYFIN_IGDB_API_CLIENT_SECRET: ${IGDB_CLIENTSEC}
-    volumes:
-      - /opt/data/media/games:/opt/gameyfin-library
-    ports:
-      - 8086:8080
     networks:
       - media-management
       - backend

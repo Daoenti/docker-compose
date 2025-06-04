@@ -13,32 +13,6 @@ services:
       - 8180:80
     restart: unless-stopped
 
-  uptime-kuma:
-    image: louislam/uptime-kuma:1
-    container_name: uptime-kuma
-    networks:
-      - infra-services
-      - backend
-    ports:
-      - 3001:3001
-    volumes:
-      - /opt/docker/uptime-kuma/data:/app/data
-      - /var/run/docker.sock:/var/run/docker.sock
-    restart: unless-stopped
-
-  homepage:
-    image: ghcr.io/gethomepage/homepage:latest
-    container_name: homepage
-    networks:
-      - infra-services
-      - backend
-    ports:
-      - 3000:3000
-    volumes:
-      - /opt/docker/homepage/config:/app/config
-      - /var/run/docker.sock:/var/run/docker.sock
-    restart: unless-stopped
-
   prometheus:
     image: prom/prometheus
     container_name: prometheus
