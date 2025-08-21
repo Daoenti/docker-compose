@@ -38,22 +38,6 @@ services:
       - 8989:8989
     restart: unless-stopped
 
-  readarr:
-    image: lscr.io/linuxserver/readarr:nightly
-    container_name: readarr
-    networks:
-      - media-management
-      - backend
-    environment:
-      <<: *common-variables
-      DOCKER_MODS: ghcr.io/gilbn/theme.park:readarr
-    volumes:
-      - /opt/docker/readarr/config:/config
-      - /opt/data:/data
-    ports:
-      - 8787:8787
-    restart: unless-stopped
-
   lidarr:
     image: lscr.io/linuxserver/lidarr:latest
     container_name: lidarr
@@ -110,7 +94,7 @@ services:
       - backend
     ports:
       - 5055:5055
-    environment: 
+    environment:
       <<: *common-variables
     volumes:
       - /opt/docker/overseerr/config:/config
@@ -184,7 +168,7 @@ services:
     container_name: sabnzbd
     environment:
       <<: *common-variables
-    volumes: 
+    volumes:
       - /opt/docker/sabnzbd/config:/config
       - /opt/data:/data
     ports:

@@ -10,11 +10,12 @@ services:
     networks:
       - public-services
       - backend
-    environment: 
+    environment:
       <<: *common-variables
       CONTAINER_PRESERVE_CONFIG: true
       FOUNDRY_USERNAME: ${F_USER}
       FOUNDRY_PASSWORD: ${F_PASS}
+      FOUNDRY_ADMIN_KEY: ${F_ADMIN_KEY}
     ports:
       - 30000:30000/tcp
     volumes:
@@ -31,8 +32,8 @@ services:
     ports:
       - 5000:5000
     volumes:
-        - /opt/data:/data
-        - /opt/docker/kavita/config:/kavita/config
+      - /opt/data:/data
+      - /opt/docker/kavita/config:/kavita/config
     restart: unless-stopped
 
   vault:
@@ -64,9 +65,25 @@ services:
     volumes:
       - /opt/docker/pastebin/data:/upload
 
+  plex:
+    image: plexinc/pms-docker
+    container_name: plex
+    environment:
+      PLEX_GID: 973
+      PLEX_UID: 970
+      TZ: etc/UTC
+      PLEX_CLAIM: gUj3pbTUkmLXxADux2vd
+    network_mode: host
+    volumes:
+      - /dev/dri:/dev/dri
+      - /opt/docker/plex:/config
+      - /opt/plex_transcode:/transcode
+      - /opt/data/media:/data
+    restart: unless-stopped
+
 networks:
   public-services:
     name: public-services
   backend:
     name: backend
-    external: true 
+    external: true

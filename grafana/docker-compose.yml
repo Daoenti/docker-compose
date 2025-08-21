@@ -11,7 +11,7 @@ services:
       <<: *common-variables
       GF_SERVER_ROOT_URL: http://grafana.thecowsaysmoo.net/
       GF_INSTALL_PLUGINS: grafana-clock-panel, grafana-piechart-panel
-    user: '0'
+    user: "0"
     networks:
       - grafana
       - backend
@@ -27,7 +27,7 @@ services:
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:latest
     container_name: cadvisor
-    networks: 
+    networks:
       - grafana
       - backend
     ports:
@@ -41,21 +41,6 @@ services:
     privileged: true
     devices:
       - /dev/kmsg
-      
-  pihole-exporter:
-    image: ekofr/pihole-exporter:latest
-    container_name: pihole-exporter
-    environment:
-      PIHOLE_HOSTNAME: ${PIHOLE_IP}
-      PIHOLE_API_TOKEN: ${PIHOLE_API}
-      PIHOLE_PORT: ${PIHOLE_PORT}
-      PORT: 9617
-    networks:
-      - grafana
-      - backend
-    ports:
-      - 9617:9617
-    restart: unless-stopped
 
 networks:
   grafana:
