@@ -66,19 +66,25 @@ services:
       - /opt/docker/pastebin/data:/upload
 
   plex:
-    image: plexinc/pms-docker
+    image: plexinc/pms-docker:plexpass
     container_name: plex
     environment:
       PLEX_GID: 973
       PLEX_UID: 970
       TZ: etc/UTC
-      PLEX_CLAIM: gUj3pbTUkmLXxADux2vd
     network_mode: host
+    tmpfs:
+      - /transcode:size=8G,uid=970,gid=973,mode=777
     volumes:
-      - /dev/dri:/dev/dri
       - /opt/docker/plex:/config
-      - /opt/plex_transcode:/transcode
       - /opt/data/media:/data
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu, utility, video]
     restart: unless-stopped
 
 networks:
