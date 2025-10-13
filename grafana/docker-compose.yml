@@ -10,7 +10,11 @@ services:
     environment:
       <<: *common-variables
       GF_SERVER_ROOT_URL: http://grafana.thecowsaysmoo.net/
-      GF_INSTALL_PLUGINS: grafana-clock-panel, grafana-piechart-panel
+      GF_INSTALL_PLUGINS: |-
+        grafana-clock-panel, 
+        grafana-piechart-panel, 
+        grafana-github-datasource,
+        yesoreyeram-infinity-datasource
     user: "0"
     networks:
       - grafana
@@ -27,18 +31,20 @@ services:
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:latest
     container_name: cadvisor
+    command:
+      - '-housekeeping_interval=5s'
+      - '-docker_only=true'
     networks:
       - grafana
       - backend
     ports:
       - 9080:8080
     volumes:
-      - /:/rootfs
-      - /var/run:/var/run
-      - /sys:/sys
-      - /var/lib/docker:/var/lib/docker
-      - /dev/disk:/dev/disk
-    privileged: true
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker:/var/lib/docker:ro
+      - /dev/disk:/dev/disk:ro
     devices:
       - /dev/kmsg
 

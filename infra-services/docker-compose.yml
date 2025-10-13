@@ -28,6 +28,20 @@ services:
       - /opt/docker/prometheus/prometheus:/prometheus
     restart: unless-stopped
 
+  prometheus-nvidiasmi:
+    image: e7db/prometheus-nvidiasmi:cuda11
+    container_name: prometheus-nvidiasmi
+    environment: *common-variables
+    networks:
+      - infra-services
+      - backend
+    ports:
+      - 9202:9202
+    user: "0"
+    privileged: true
+    runtime: nvidia
+    restart: unless-stopped
+
   watchtower:
     image: containrrr/watchtower
     container_name: watchtower
