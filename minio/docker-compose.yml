@@ -27,6 +27,7 @@ services:
   minio1:
     <<: *minio-common
     hostname: minio1
+    container_name: minio1
     networks:
       - minio
     volumes:
@@ -36,6 +37,7 @@ services:
   minio2:
     <<: *minio-common
     hostname: minio2
+    container_name: minio2
     networks:
       - minio
     volumes:
@@ -45,6 +47,7 @@ services:
   minio3:
     <<: *minio-common
     hostname: minio3
+    container_name: minio3
     networks:
       - minio
     volumes:
@@ -54,6 +57,7 @@ services:
   minio4:
     <<: *minio-common
     hostname: minio4
+    container_name: minio4
     networks:
       - minio
     volumes:
@@ -63,6 +67,7 @@ services:
   nginx:
     image: nginx:1.27-alpine
     hostname: nginx
+    container_name: minio-nginx
     networks:
       - minio
     volumes:
