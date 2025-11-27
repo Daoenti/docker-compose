@@ -35,6 +35,7 @@ services:
     container_name: n8n
     networks:
       - n8n
+      - backend
     environment:
       DB_TYPE: postgresdb
       DB_POSTGRESDB_HOST: n8n-postgres
@@ -72,3 +73,6 @@ networks:
   n8n:
     name: n8n
     driver: bridge
+  backend:
+    name: backend
+    external: true

@@ -41,6 +41,10 @@ config.json
 # Watchtower config (may contain registry credentials)
 **/watchtower/config.json
 
+# Caddy configuration (may contain domain names and routing info)
+Caddyfile
+**/Caddyfile
+
 # SSL/TLS certificates (unless you use Let's Encrypt and they're not sensitive)
 certs/
 *.crt

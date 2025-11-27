@@ -1,0 +1,102 @@
+# Example Caddyfile with Cloudflare DNS challenge
+# Copy this file to Caddyfile and customize for your domains
+
+# Global options
+{
+	# Enable admin API (optional, for health checks)
+	admin localhost:2019
+
+	# Email for Let's Encrypt notifications
+	email your-email@example.com
+
+	# Use Cloudflare DNS challenge for all certificates
+	acme_dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+}
+
+# Example service configuration
+example.com {
+	# Reverse proxy to a backend service
+	reverse_proxy localhost:8080
+
+	# Enable compression
+	encode gzip
+
+	# Access logging
+	log {
+		output file /data/access.log
+		format json
+	}
+}
+
+# Example with multiple backends
+www.example.com {
+	reverse_proxy {
+		to localhost:8080 localhost:8081
+		lb_policy round_robin
+		health_uri /health
+		health_interval 10s
+	}
+}
+
+# Example with custom headers
+api.example.com {
+	reverse_proxy localhost:3000 {
+		header_up Host {upstream_hostport}
+		header_up X-Real-IP {remote_host}
+		header_up X-Forwarded-For {remote_host}
+		header_up X-Forwarded-Proto {scheme}
+	}
+}
+
+# Example for WebSocket support
+ws.example.com {
+	reverse_proxy localhost:8765 {
+		# WebSocket settings
+		transport http {
+			keepalive 90s
+			keepalive_idle_conns 10
+		}
+	}
+}
+
+# Wildcard subdomain example
+*.example.com {
+	# Match specific subdomains
+	@app host app.example.com
+	handle @app {
+		reverse_proxy localhost:5000
+	}
+
+	@api host api.example.com
+	handle @api {
+		reverse_proxy localhost:3000
+	}
+
+	# Default handler for other subdomains
+	handle {
+		respond "Subdomain not configured" 404
+	}
+}
+
+# File server example
+files.example.com {
+	root * /var/www/files
+	file_server browse
+}
+
+# Redirect example (HTTP to HTTPS is automatic)
+old.example.com {
+	redir https://new.example.com{uri} permanent
+}
+
+# Static site with reverse proxy fallback
+example.com {
+	root * /var/www/html
+
+	# Try files first, then proxy
+	try_files {path} /index.html
+	file_server
+
+	# Proxy API requests
+	reverse_proxy /api/* localhost:3000
+}
