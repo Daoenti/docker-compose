@@ -11,8 +11,8 @@ services:
       <<: *common-variables
       GF_SERVER_ROOT_URL: http://grafana.thecowsaysmoo.net/
       GF_INSTALL_PLUGINS: |-
-        grafana-clock-panel, 
-        grafana-piechart-panel, 
+        grafana-clock-panel,
+        grafana-piechart-panel,
         grafana-github-datasource,
         yesoreyeram-infinity-datasource
     user: "0"
@@ -27,6 +27,17 @@ services:
     restart: unless-stopped
     depends_on:
       - cadvisor
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
 
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:latest
@@ -47,6 +58,18 @@ services:
       - /dev/disk:/dev/disk:ro
     devices:
       - /dev/kmsg
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/healthz"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
 
 networks:
   grafana:

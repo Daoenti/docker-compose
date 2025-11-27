@@ -1,1 +1,88 @@
+# Environment files with secrets
 .env
+.env.*
+!.env.example
+!.env.template
+**/.env
+**/.env.*
+!**/.env.example
+!**/.env.template
+
+# Docker override files that might contain secrets
+docker-compose.override.yml
+docker-compose.*.local.yml
+
+# Backup files
+*.bak
+*.backup
+*.old
+*~
+
+# Secrets and credentials
+secrets/
+*.key
+*.pem
+*.p12
+*.pfx
+*.crt
+*.cer
+*.der
+*.csr
+*.p7b
+*.p7c
+*.keystore
+*.jks
+*.secret
+*.token
+credentials.json
+auth.json
+config.json
+
+# Watchtower config (may contain registry credentials)
+**/watchtower/config.json
+
+# SSL/TLS certificates (unless you use Let's Encrypt and they're not sensitive)
+certs/
+*.crt
+*.key
+
+# Database dumps and backups
+*.sql
+*.sql.gz
+*.dump
+*.db
+
+# Logs that might contain sensitive info
+logs/
+*.log
+
+# Volume data directories (if you ever mount them here)
+volumes/
+data/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+.directory
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+*.sublime-project
+*.sublime-workspace
+
+# Temporary files
+tmp/
+temp/
+*.tmp

@@ -21,6 +21,17 @@ services:
     volumes:
       - /opt/docker/foundry:/data
     restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:30000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
 
   kavita:
     image: jvmilazz0/kavita:latest
@@ -35,6 +46,17 @@ services:
       - /opt/data:/data
       - /opt/docker/kavita/config:/kavita/config
     restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:5000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
 
   vault:
     image: vaultwarden/server:latest
@@ -46,15 +68,26 @@ services:
       - 8085:80
     environment:
       <<: *common-variables
-      SIGNUPS_ALLOWED: true
+      SIGNUPS_ALLOWED: false
       ADMIN_TOKEN: ${VAULT_TOKEN}
     volumes:
       - /opt/docker/vault/data:/data
     restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:80/alive"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
 
   pastebin:
     image: wantguns/bin
-    container_name: patebin
+    container_name: pastebin
     networks:
       - public-services
       - backend
@@ -64,16 +97,29 @@ services:
       BIN_CLIENT_DESC: moo
     volumes:
       - /opt/docker/pastebin/data:/upload
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    # Health check disabled - distroless container with no shell/utilities
 
   plex:
-    image: plexinc/pms-docker:plexpass
+    image: lscr.io/linuxserver/plex:latest
     container_name: plex
     environment:
+      <<: *common-variables
       PLEX_GID: 973
-      PLEX_UID: 970
+      PLEX_UID: 1000
       TZ: etc/UTC
+      VERSION: docker
     network_mode: host
     tmpfs:
+      # Transcoding temp directory - stored in RAM for better performance
+      # 8GB is sufficient for ~2 simultaneous 1080p transcodes
+      # Increase to 16-32GB if you frequently transcode 4K content
+      # Monitor usage: docker exec plex df -h /transcode
       - /transcode:size=8G,uid=970,gid=973,mode=777
     volumes:
       - /opt/docker/plex:/config
@@ -86,6 +132,17 @@ services:
               count: all
               capabilities: [gpu, utility, video]
     restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:32400/identity"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 90s
 
 networks:
   public-services:

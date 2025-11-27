@@ -4,6 +4,16 @@ x-common-variables: &common-variables
   TZ: Etc/UTC
   TP_THEME: overseerr
 
+x-nvenc: &nvenc
+  runtime: nvidia
+  deploy:
+    resources:
+      reservations:
+        devices:
+          - driver: nvidia
+            count: 1
+            capabilities: [gpu]
+
 services:
   radarr:
     image: lscr.io/linuxserver/radarr:latest
@@ -21,6 +31,17 @@ services:
     ports:
       - 7878:7878/tcp
     restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:7878/ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
 
   sonarr:
     image: lscr.io/linuxserver/sonarr:develop
@@ -37,6 +58,17 @@ services:
     ports:
       - 8989:8989
     restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8989/ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
 
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
@@ -52,6 +84,17 @@ services:
     volumes:
       - /opt/docker/prowlarr/config:/config
     restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9696/ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
 
   whisparr:
     image: ghcr.io/hotio/whisparr
@@ -69,6 +112,17 @@ services:
       - /opt/docker/whisparr/config:/config
       - /opt/data:/data
     restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:6969/ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
 
   overseerr:
     image: lscr.io/linuxserver/overseerr:latest
@@ -83,6 +137,17 @@ services:
     volumes:
       - /opt/docker/overseerr/config:/config
     restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:5055/api/v1/status"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
 
   tautulli:
     image: lscr.io/linuxserver/tautulli:latest
@@ -98,6 +163,17 @@ services:
     volumes:
       - /opt/docker/tautulli/config:/config
     restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8181/status"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
 
   mylar3:
     image: lscr.io/linuxserver/mylar3:nightly
@@ -111,6 +187,17 @@ services:
     ports:
       - 8090:8090
     restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8090"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
 
   notifiarr:
     image: golift/notifiarr
@@ -125,27 +212,33 @@ services:
       <<: *common-variables
       DN_API_KEY: ${NOT_APIKEY}
       DN_RADARR_0_NAME: "Radarr"
-      DN_RADARR_0_URL: "http://192.168.1.140:7878"
+      DN_RADARR_0_URL: "http://radarr:7878"
       DN_RADARR_0_API_KEY: ${RAD_APIKEY}
       DN_PROWLARR_0_NAME: "Prowlarr"
-      DN_PROWLARR_0_URL: "http://192.168.1.140:9696"
+      DN_PROWLARR_0_URL: "http://prowlarr:9696"
       DN_PROWLARR_0_API_KEY: ${PRO_APIKEY}
       DN_SONARR_0_NAME: "Sonarr"
-      DN_SONARR_0_URL: "http://192.168.1.140:8989"
+      DN_SONARR_0_URL: "http://sonarr:8989"
       DN_SONARR_0_API_KEY: ${SON_APIKEY}
       DN_SABNZBD_0_NAME: "SABnzbd"
-      DN_SABNZBD_0_URL: "http://192.168.1.140:8080"
+      DN_SABNZBD_0_URL: "http://sabnzbd:8080"
       DN_SABNZBD_0_API_KEY: ${SAB_APIKEY}
       DN_PLEX_0_URL: ${PLEX_URL}
       DN_PLEX_TOKEN: ${PLEX_TOK}
       DN_TAUTULLI_NAME: "Tautulli"
-      DN_TAUTULLI_URL: "http://192.168.1.140:8181"
+      DN_TAUTULLI_URL: "http://tautulli:8181"
       DN_TAUTULLI_API_KEY: ${TAT_APIKEY}
     volumes:
       - /opt/docker/notifiarr/config:/config
       - /opt/data:/data
       - /etc/machine-id:/etc/machine-id
     restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    # Health check disabled - distroless container with no shell/utilities
 
   sabnzbd:
     image: lscr.io/linuxserver/sabnzbd:latest
@@ -160,6 +253,75 @@ services:
     networks:
       - media-management
       - backend
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/api?mode=version"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  watchstate:
+    image: ghcr.io/arabcoders/watchstate:latest
+      # To change the user/group id associated with the tool change the following line.
+    user: "1000:973"
+    container_name: watchstate
+    restart: unless-stopped
+    ports:
+      - "8086:8080" # The port which the webui will be available on.
+    volumes:
+      - /opt/docker/watchstate:/config:rw # mount current directory to container /config directory.
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8080"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  stash:
+    image: ghcr.io/feederbox826/stash-s6:hwaccel-alpine
+    <<: *nvenc
+    container_name: stash
+    restart: unless-stopped
+    ports:
+      - "9999:9999"
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "10"
+        max-size: "2m"
+    environment:
+      <<: *common-variables
+      STASH_STASH: /data/
+      STASH_GENERATED: /generated/
+      STASH_METADATA: /metadata/
+      STASH_CACHE: /cache/
+      STASH_PORT: 9999
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /opt/docker/stash/config:/root/.stash
+      - /opt/data/media/adult:/data
+      - /opt/docker/stash/metadata:/metadata
+      - /opt/docker/stash/cache:/cache
+      - /opt/docker/stash/blobs:/blobs
+      - /opt/docker/stash/generated:/generated
+      - /opt/docker/stash/pip-install:/pip-install
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:9999"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 90s
 
 networks:
   media-management:
