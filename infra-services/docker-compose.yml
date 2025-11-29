@@ -158,6 +158,50 @@ services:
       retries: 3
       start_period: 30s
 
+  homarr:
+    image: ghcr.io/homarr-labs/homarr:latest
+    container_name: homarr
+    restart: unless-stopped
+    networks:
+      - infra-services
+    ports:
+      - 7575:7575
+    volumes:
+      - /opt/docker/homarr/appdata:/appdata
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      <<: *common-variables
+      SECRET_ENCRYPTION_KEY: ${SECRET_ENCRYPTION_KEY}
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:7575"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+  dash:
+    image: mauricenino/dashdot:nvidia
+    restart: unless-stopped
+    container_name: dashdot
+    privileged: true
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities:
+                - gpu
+    ports:
+      - '3081:3001'
+    volumes:
+      - /:/mnt/host:ro
+    environment:
+      DASHDOT_WIDGET_LIST: 'os,cpu,storage,ram,network,gpu'
+
 networks:
   infra-services:
     name: infra-services
