@@ -66,8 +66,8 @@ services:
       - public-services
       - backend
     ports:
-      - "443:443"
-      - "443:443/udp"  # HTTP/3
+      - "8443:443"
+      - "8443:443/udp"  # HTTP/3
     environment:
       CLOUDFLARE_API_TOKEN: ${CLOUDFLARE_API_TOKEN}
     volumes:
