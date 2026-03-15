@@ -215,6 +215,38 @@ services:
       retries: 3
       start_period: 60s
 
+  plex:
+    image: lscr.io/linuxserver/plex:latest
+    container_name: plex
+    environment:
+      <<: *common-variables
+      PLEX_GID: 568
+      PLEX_UID: 568
+      TZ: etc/UTC
+      VERSION: docker
+    network_mode: host
+    tmpfs:
+      # Transcoding temp directory - stored in RAM for better performance
+      # 8GB is sufficient for ~2 simultaneous 1080p transcodes
+      # Increase to 16-32GB if you frequently transcode 4K content
+      # Monitor usage: docker exec plex df -h /transcode
+      - /transcode:size=8G,uid=970,gid=973,mode=777
+    volumes:
+      - /mnt/swim/configs/plex:/config
+      - /mnt/swim/media:/data
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:32400/identity"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 90s
+
 networks:
   media-management:
     name: media-management
