@@ -125,7 +125,7 @@ services:
     environment:
       <<: *common-variables
     volumes:
-      - /mnt/swim/configs/overseerr:/config
+      - /mnt/swim/configs/seerr:/app/config
     restart: unless-stopped
     logging:
       driver: "json-file"
