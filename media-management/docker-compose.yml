@@ -122,8 +122,6 @@ services:
       - backend
     ports:
       - 5055:5055
-    environment:
-      <<: *common-variables
     volumes:
       - /mnt/swim/configs/seerr:/app/config
     restart: unless-stopped
