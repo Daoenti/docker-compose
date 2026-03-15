@@ -1,38 +1,9 @@
 x-common-variables: &common-variables
-  PUID: 1000
-  PGID: 973
+  PUID: 568
+  PGID: 568
   TZ: Etc/UTC
 
 services:
-  foundry:
-    image: felddy/foundryvtt:release
-    container_name: foundry
-    networks:
-      - public-services
-      - backend
-    environment:
-      <<: *common-variables
-      CONTAINER_PRESERVE_CONFIG: true
-      FOUNDRY_USERNAME: ${F_USER}
-      FOUNDRY_PASSWORD: ${F_PASS}
-      FOUNDRY_ADMIN_KEY: ${F_ADMIN_KEY}
-    ports:
-      - 30000:30000/tcp
-    volumes:
-      - /opt/docker/foundry:/data
-    restart: unless-stopped
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"
-        max-file: "3"
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://127.0.0.1:30000"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 60s
-
   kavita:
     image: jvmilazz0/kavita:latest
     container_name: kavita
@@ -43,8 +14,8 @@ services:
     ports:
       - 5000:5000
     volumes:
-      - /opt/data:/data
-      - /opt/docker/kavita/config:/kavita/config
+      - /mnt/swim/media:/data
+      - /mnt/swim/configs/kavita:/kavita/config
     restart: unless-stopped
     logging:
       driver: "json-file"
@@ -71,7 +42,7 @@ services:
       SIGNUPS_ALLOWED: false
       ADMIN_TOKEN: ${VAULT_TOKEN}
     volumes:
-      - /opt/docker/vault/data:/data
+      - /mnt/swim/configs/vault:/data
     restart: unless-stopped
     logging:
       driver: "json-file"
@@ -84,65 +55,6 @@ services:
       timeout: 10s
       retries: 3
       start_period: 30s
-
-  pastebin:
-    image: wantguns/bin
-    container_name: pastebin
-    networks:
-      - public-services
-      - backend
-    environment:
-      <<: *common-variables
-      BIN_PORT: 6163
-      BIN_CLIENT_DESC: moo
-    volumes:
-      - /opt/docker/pastebin/data:/upload
-    restart: unless-stopped
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"
-        max-file: "3"
-    # Health check disabled - distroless container with no shell/utilities
-
-  plex:
-    image: lscr.io/linuxserver/plex:latest
-    container_name: plex
-    environment:
-      <<: *common-variables
-      PLEX_GID: 973
-      PLEX_UID: 1000
-      TZ: etc/UTC
-      VERSION: docker
-    network_mode: host
-    tmpfs:
-      # Transcoding temp directory - stored in RAM for better performance
-      # 8GB is sufficient for ~2 simultaneous 1080p transcodes
-      # Increase to 16-32GB if you frequently transcode 4K content
-      # Monitor usage: docker exec plex df -h /transcode
-      - /transcode:size=8G,uid=970,gid=973,mode=777
-    volumes:
-      - /opt/docker/plex:/config
-      - /opt/data/media:/data
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: all
-              capabilities: [gpu, utility, video]
-    restart: unless-stopped
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"
-        max-file: "3"
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:32400/identity"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 90s
 
   caddy:
     build:
@@ -166,8 +78,8 @@ services:
     environment:
       CLOUDFLARE_API_TOKEN: ${CLOUDFLARE_API_TOKEN}
     volumes:
-      - /opt/docker/caddy/data:/data
-      - /opt/docker/caddy/config:/etc/caddy
+      - /mnt/swim/configs/caddy/data:/data
+      - /mnt/swim/configs/caddy/config:/etc/caddy
     logging:
       driver: "json-file"
       options:
